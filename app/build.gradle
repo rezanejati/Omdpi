@@ -17,7 +17,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "API_KEY", '"a0a61398"'
+        }
         release {
+            buildConfigField "String", "API_KEY", '"a0a61398"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -26,6 +30,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+    kapt {
+        generateStubs = true
     }
 
 }
@@ -36,7 +46,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:design:$android_support_version"
     implementation "androidx.appcompat:appcompat:$androidx_support_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     testImplementation "android.arch.core:core-testing:$arch_core_version"
+    kapt "com.android.databinding:compiler:$databinding_compiler_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_extensions_version"
+
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$test_runner_version"
@@ -62,4 +76,14 @@ dependencies {
 
     testImplementation "org.mockito:mockito-core:$mockito_core_version"
     testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
+
+    implementation "io.reactivex.rxjava2:rxandroid:$rxjava2_rxandroid_version"
+
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    implementation 'io.github.meetsl:SCardView:1.2'
+    implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
+    implementation 'com.airbnb.android:lottie:3.0.7'
+
+
 }
