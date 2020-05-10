@@ -1,12 +1,9 @@
 package nejati.me.omdbapi.di.module
 
-import dagger.BindsInstance
-import dagger.Component
 import dagger.Module
-import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
-import nejati.me.omdbapi.view.activities.MainActivity
+import nejati.me.omdbapi.view.activities.detail.DetailMovieActivity
+import nejati.me.omdbapi.view.activities.mian.MainActivity
 
 
 /**
@@ -19,5 +16,9 @@ abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector
     internal abstract fun bindMainActivity(): MainActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun bindDetailMovieActivity(): DetailMovieActivity
+
 
 }

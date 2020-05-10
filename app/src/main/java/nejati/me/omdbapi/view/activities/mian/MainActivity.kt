@@ -1,4 +1,4 @@
-package nejati.me.omdbapi.view.activities
+package nejati.me.omdbapi.view.activities.mian
 
 import android.app.SearchManager
 import android.content.Context
@@ -11,7 +11,6 @@ import nejati.me.omdbapi.base.BaseActivity
 import nejati.me.omdbapi.databinding.ActivityMainBinding
 import nejati.me.omdbapi.viewModels.main.MainViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
-import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import nejati.me.omdbapi.BuildConfig
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
@@ -56,18 +55,19 @@ class MainActivity :  BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel!!.navigator = this
-
         setSupportActionBar(toolbar)
-
         setTitle(getString(R.string.app_name))
-        //Live Data for Adapter
-        viewModel!!.omdbpiResultSearchLiveData.observe(this, Observer<List<Search>> { s ->
-            viewModel!!.setMovieList(s)
-        })
     }
     fun createSearchRequest(title:String): OmdpiRequestModel {
         val OmdpiRequestModel = OmdpiRequestModel()
 
+        if(viewModel!!.isMovies.get()!!){
+            OmdpiRequestModel.type = "movie"
+
+        }else{
+            OmdpiRequestModel.type = "series"
+
+        }
         OmdpiRequestModel.searchName = title
         OmdpiRequestModel.apikey = BuildConfig.API_KEY
         return OmdpiRequestModel

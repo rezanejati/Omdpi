@@ -19,7 +19,7 @@ class OmdpApi
 constructor(private val api: RetroClient) {
 
     fun getMovies(request: OmdpiRequestModel): Single<OmdbpiSearchrResponse> {
-        return api.getMoviesList(request.searchName!!, request.apikey!!)
+        return api.getMoviesList(request.searchName!!, request.apikey!!, request.type!!)
     }
 
 

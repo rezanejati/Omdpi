@@ -16,5 +16,6 @@ interface RetroClient {
 
     @GET(Const.BASEURl)
     fun getMoviesList(@Query("s") ts: String,
-                      @Query("apikey") apikey: String): Single<OmdbpiSearchrResponse>
+                      @Query("apikey") apikey: String,
+                      @Query("type") type: String): Single<OmdbpiSearchrResponse>
 }

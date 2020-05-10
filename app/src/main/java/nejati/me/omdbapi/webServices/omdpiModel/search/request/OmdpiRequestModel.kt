@@ -9,4 +9,5 @@ package nejati.me.omdbapi.service.model.request
 class OmdpiRequestModel {
     var searchName: String? = null
     var apikey: String? = null
+    var type: String? = null
 }

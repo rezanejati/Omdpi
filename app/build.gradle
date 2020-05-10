@@ -47,6 +47,8 @@ dependencies {
     implementation "com.android.support:design:$android_support_version"
     implementation "androidx.appcompat:appcompat:$androidx_support_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation "android.arch.core:core-testing:$arch_core_version"
     kapt "com.android.databinding:compiler:$databinding_compiler_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_extensions_version"
