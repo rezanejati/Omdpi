@@ -1,14 +1,12 @@
 package nejati.me.omdbapi.viewModels.main
 
-import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.ActivityBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
-import nejati.me.omdbapi.view.activities.MainActivityNavigator
+import nejati.me.omdbapi.view.activities.mian.MainActivityNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
 import nejati.me.sample.di.api.OmdpApi
@@ -23,7 +21,7 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
     private var disposable: CompositeDisposable? = null
     private var api: OmdpApi? = null
     private var rxSingleSchedulers: RxSingleSchedulers? = null
-    var requestModel = OmdpiRequestModel()
+    public var requestModel : OmdpiRequestModel ? = null
 
     init {
         disposable = CompositeDisposable()
@@ -35,21 +33,15 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
      */
     var omdbpiResultSearchObservable = ObservableArrayList<Search>()
 
-    /**
-     * ListObservable : this is a MutableLiveData and use in adapter
-     */
-    val omdbpiResultSearchLiveData = MutableLiveData<List<Search>>()
-
-    /**
-     * MovieList : this object is the list of Movies
-     */
 
     //todo change this
-
     val moviesResult = ArrayList<Search>()
+    val seriesResult = ArrayList<Search>()
     var showProgressLayout = ObservableField(false)
     var showWattingSearchLayout = ObservableField(true)
     var showResultRecyclerView = ObservableField(false)
+    var showErrorLayout = ObservableField(false)
+    var errorMessage =  ObservableField<String>()
 
     /**
      * inject retro client
@@ -64,7 +56,7 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
      * get data from web service
      */
     fun getData() {
-        disposable!!.add(api!!.getMovies(requestModel)
+        disposable!!.add(api!!.getMovies(requestModel!!)
             .compose(rxSingleSchedulers!!.applySchedulers())
             .subscribe({onReady(it)}, { onError()}))
     }
@@ -75,29 +67,34 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
      * @param message
      */
     fun onError() {
-
         showProgressLayout.set(false)
-
-
     }
 
     /**
      * OmdbApi Response
-     * @param t Response Of OmdbApiResponse Api
+     * @param result Response Of OmdbApiResponse Api
      */
     fun onReady(result: OmdbpiSearchrResponse) {
+
         showProgressLayout.set(false)
         showResultRecyclerView.set(true)
 
-
-        Log.e("response",result.response!!.toLowerCase())
-        if (result.response!!.toLowerCase().toBoolean()){
-            if (moviesResult.size>0)
+        if (result.response!!.toBoolean()){
+            if(requestModel!!.type.equals("movie")){
                 moviesResult.clear()
+                moviesResult.addAll(result.search!!)
+                setMovieList(moviesResult)
+            }else{
+                seriesResult.clear()
+                seriesResult.addAll(result.search!!)
+                setMovieList(seriesResult)
+            }
 
-            moviesResult.addAll(result.search!!)
-            omdbpiResultSearchLiveData.setValue(moviesResult)
+
         }else{
+            showErrorLayout.set(true)
+            showResultRecyclerView.set(false)
+            errorMessage.set(result.error)
 
 
         }
@@ -107,32 +104,45 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
 
         showProgressLayout.set(true)
         showWattingSearchLayout.set(false)
+        showErrorLayout.set(false)
+
         getData()
 
     }
-
-
-    fun onMoviesItemClick(position: Int) {
-        navigator!!.onDetail(omdbpiResultSearchObservable.get(position))
-
-    }
     fun setMovieList(list: List<Search>) {
-
-        omdbpiResultSearchObservable.clear()
+        if (omdbpiResultSearchObservable.size>0)  {omdbpiResultSearchObservable.clear()}
 
         omdbpiResultSearchObservable.addAll(list)
 
     }
 
+    fun onMoviesItemClick(position: Int) {
+        navigator!!.onDetail(omdbpiResultSearchObservable.get(position))
+
+    }
+
+
     fun onClickMovies(){
         isMovies.set(true)
-
+        if (moviesResult.size>0)
+            setMovieList(moviesResult)
+        else {
+            requestModel?.let {
+                it.type="movie"
+                callOmdbApi()
+            }
+        }
     }
-
     fun onClickSeries(){
         isMovies.set(false)
-
+        if (seriesResult.size>0)
+            setMovieList(seriesResult)
+        else {
+            requestModel?.let {
+                it.type="series"
+                callOmdbApi()
+            }
+        }
     }
-
 }
 

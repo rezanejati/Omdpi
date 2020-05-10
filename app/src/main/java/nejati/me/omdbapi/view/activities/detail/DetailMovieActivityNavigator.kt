@@ -1,4 +1,4 @@
-package nejati.me.omdbapi.view.activities
+package nejati.me.omdbapi.view.activities.detail
 
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
 
@@ -7,6 +7,6 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
  * Reza Nejati <rn.nejati></rn.nejati>@gmail.com>
  * Copyright © 2019
  */
-interface MainActivityNavigator {
+interface DetailMovieActivityNavigator {
     fun onDetail(search: Search?)
 }

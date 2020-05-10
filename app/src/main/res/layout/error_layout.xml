@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="nejati.me.omdbapi.viewModels.main.MainViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/textSize_20sp"
+            android:text="@{viewModel.errorMessage}"
+            android:textColor="@color/black" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lvError"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_width="@dimen/_250dp"
+            android:layout_height="@dimen/_250dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie/error.json"
+            app:lottie_loop="false" />
+    </LinearLayout>
+</layout>

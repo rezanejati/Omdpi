@@ -37,6 +37,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/textSize_16sp"
                 android:text="Movies"
+                android:clickable="@{!viewModel.isMovies}"
                 android:onClick="@{() -> viewModel.onClickMovies()}"
                 android:textColor="@{viewModel.isMovies  ? @color/white : @color/black}"
                 android:background="@{viewModel.isMovies  ? @drawable/movies_selected_background : @drawable/unselected_movies_background}"
@@ -76,10 +77,14 @@
             android:id="@+id/llWaitting"
             layout="@layout/watting_search_layout"
             android:visibility="@{viewModel.showWattingSearchLayout ? View.VISIBLE : View.GONE}" />
+        <include
+            android:id="@+id/llError"
+            layout="@layout/error_layout"
+            android:visibility="@{viewModel.showErrorLayout ? View.VISIBLE : View.GONE}"
+            bind:viewModel="@{((nejati.me.omdbapi.viewModels.main.MainViewModel) viewModel)}"/>
 
         <include
             android:id="@+id/llLoading"
-
             layout="@layout/loading"
             android:visibility="@{viewModel.showProgressLayout ? View.VISIBLE : View.GONE}" />
 

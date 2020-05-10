@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import nejati.me.omdbapi.di.scope.ViewModelKey
 import nejati.me.omdbapi.utility.OmdbApiViewModelFactory
+import nejati.me.omdbapi.viewModels.detail.DetailViewModel
 import nejati.me.omdbapi.viewModels.main.MainViewModel
 
 /**
@@ -23,4 +24,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     internal abstract fun mainViewModel(mainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailViewModel::class)
+    internal abstract fun detailViewModel(mainViewModel: DetailViewModel): ViewModel
 }
