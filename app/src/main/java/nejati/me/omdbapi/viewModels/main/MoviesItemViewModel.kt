@@ -2,7 +2,7 @@ package nejati.me.omdbapi.viewModels.main
 
 import androidx.databinding.ObservableField
 import nejati.me.omdbapi.view.adapter.CustomClickListener
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
+import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 
 /**
  * Authors:
@@ -19,7 +19,7 @@ class MoviesItemViewModel(
         moviesItems.set(result)
     }
 
-    fun onComicsClick(t: MoviesItemViewModel) {
+    fun onMovieClick(t: MoviesItemViewModel) {
         customClickListener.itemClicked(t)
     }
 

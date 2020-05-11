@@ -9,10 +9,24 @@ import io.reactivex.disposables.CompositeDisposable
  * Reza Nejati <rn.nejati@gmail.com>
  * Copyright © 2019
  */
-abstract class ActivityBaseViewModel<N> : ViewModel() {
+abstract class FragmentBaseViewModel<N> : ViewModel() {
 
-    var navigator: N? = null
     var showProgressLayout = ObservableField(false)
     var showErrorLayout = ObservableField(false)
     var errorMessage =  ObservableField<String>()
+
+    var navigator: N? = null
+
+
+    val compositeDisposable: CompositeDisposable
+
+    init {
+        this.compositeDisposable = CompositeDisposable()
+    }
+
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
+
+    }
 }

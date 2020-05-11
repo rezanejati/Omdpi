@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+  >
 
     <data>
 
@@ -20,6 +21,8 @@
         app:cardPreventCornerOverlap="false"
         android:layout_margin="4dp"
         app:contentPadding="0dp"
+        android:onClick="@{() -> viewModel.onMovieClick(viewModel)}"
+
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -31,7 +34,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_250dp">
+                android:layout_height="@dimen/_200dp">
 
                 <ProgressBar
                     android:layout_width="wrap_content"
@@ -42,6 +45,7 @@
                     android:id="@+id/ivMovieImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     android:scaleType="fitXY"
                     app:moviesImage="@{viewModel.moviesItems.poster}"
                     bind:ignore="ContentDescription" />
@@ -62,11 +66,22 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@{viewModel.moviesItems.title}"
-                    android:textColor="#A6ADB1"
+                    android:textColor="#666A6C"
                     android:textSize="@dimen/textSize_12sp"
                     android:textStyle="bold" />
 
 
+                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_weight="100"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.moviesItems.year}"
+                android:textColor="@color/movie_text_color"
+                android:textSize="@dimen/textSize_10sp"
+                />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -74,8 +89,8 @@
                     android:layout_weight="100"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{viewModel.moviesItems.year}"
-                    android:textColor="#A6ADB1"
+                    android:text="@{viewModel.moviesItems.type}"
+                    android:textColor="#666A6C"
                     android:textSize="@dimen/textSize_10sp"
                     />
             </LinearLayout>

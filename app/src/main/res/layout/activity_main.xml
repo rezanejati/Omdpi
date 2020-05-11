@@ -6,87 +6,67 @@
     <data>
 
         <import type="android.view.View" />
+
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
             name="viewModel"
             type="nejati.me.omdbapi.viewModels.main.MainViewModel" />
+
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary" />
-        <LinearLayout
-            android:id="@+id/llToggleType"
+
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpMulti"
+
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/cv"
+
+            />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/colorPrimary"
             android:layout_below="@+id/toolbar"
-            android:orientation="horizontal"
-            android:layout_margin="4dp">
+            app:cardCornerRadius="4dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="100"
-                android:gravity="center"
-                android:textSize="@dimen/textSize_16sp"
-                android:text="Movies"
-                android:clickable="@{!viewModel.isMovies}"
-                android:onClick="@{() -> viewModel.onClickMovies()}"
-                android:textColor="@{viewModel.isMovies  ? @color/white : @color/black}"
-                android:background="@{viewModel.isMovies  ? @drawable/movies_selected_background : @drawable/unselected_movies_background}"
-                />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                app:tabIndicatorGravity="stretch"
+                app:tabMaxWidth="0dp"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/white"
+                app:tabTextColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="100"
-                android:gravity="center"
-                android:textSize="@dimen/textSize_16sp"
-                android:onClick="@{() -> viewModel.onClickSeries()}"
-                android:text="Series"
-                android:textColor="@{viewModel.isMovies  ? @color/black : @color/white}"
-                android:background="@{viewModel.isMovies  ? @drawable/unselected_series_background : @drawable/series_selected_background}"
+        </com.google.android.material.card.MaterialCardView>
 
-                />
-
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMovies"
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_below="@+id/llToggleType"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            bind:itemClick="@{viewModel}"
-            bind:listitem="@layout/movie_list_item"
-            android:background="#EFEFEF"
-            android:visibility="@{viewModel.showResultRecyclerView ? View.VISIBLE : View.GONE}"
-            bind:recyclerAdapter="@{viewModel.omdbpiResultSearchObservable}" />
-
-        <include
-            android:id="@+id/llWaitting"
-            layout="@layout/watting_search_layout"
-            android:visibility="@{viewModel.showWattingSearchLayout ? View.VISIBLE : View.GONE}" />
-        <include
-            android:id="@+id/llError"
-            layout="@layout/error_layout"
-            android:visibility="@{viewModel.showErrorLayout ? View.VISIBLE : View.GONE}"
-            bind:viewModel="@{((nejati.me.omdbapi.viewModels.main.MainViewModel) viewModel)}"/>
-
-        <include
-            android:id="@+id/llLoading"
-            layout="@layout/loading"
-            android:visibility="@{viewModel.showProgressLayout ? View.VISIBLE : View.GONE}" />
+            android:visibility="gone" />
 
     </RelativeLayout>
 

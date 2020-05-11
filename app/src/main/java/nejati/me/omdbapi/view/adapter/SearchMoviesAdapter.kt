@@ -6,9 +6,9 @@ import nejati.me.omdbapi.base.BaseAdapter
 import nejati.me.omdbapi.base.BaseViewHolder
 import nejati.me.omdbapi.databinding.MovieListItemBinding
 import nejati.me.omdbapi.view.adapter.CustomClickListener
-import nejati.me.omdbapi.viewModels.main.MainViewModel
 import nejati.me.omdbapi.viewModels.main.MoviesItemViewModel
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
+import nejati.me.omdbapi.viewModels.movie.MovieViewModel
+import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 
 
 /**
@@ -18,9 +18,10 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
  */
 class SearchMoviesAdapter(
     private val searchItems: MutableList<Search>,
-    mainViewModel: MainViewModel): BaseAdapter<BaseViewHolder, Search>() {
+    mainViewModel: MovieViewModel
+): BaseAdapter<BaseViewHolder, Search>() {
 
-    var mainViewModel: MainViewModel
+    var mainViewModel: MovieViewModel
 
     init {
        this.mainViewModel=mainViewModel
@@ -46,11 +47,13 @@ class SearchMoviesAdapter(
         BaseViewHolder(adapterBinding.root), CustomClickListener {
         private var moviesItemViewModel: MoviesItemViewModel? = null
 
+
         override fun onBind(position: Int) {
             if (searchItems.size > 0) {
                 val moviesListItem = searchItems[position]
                 moviesItemViewModel = MoviesItemViewModel(moviesListItem, this)
                 adapterBinding.viewModel = moviesItemViewModel
+                setFadeAnimation(adapterBinding.root)
 
             }
         }
@@ -60,4 +63,6 @@ class SearchMoviesAdapter(
             mainViewModel.onMoviesItemClick(adapterPosition)
         }
     }
+
+
 }

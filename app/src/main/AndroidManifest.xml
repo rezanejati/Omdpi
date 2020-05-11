@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activities.detail.DetailMovieActivity"></activity>
+        <activity android:name=".view.activities.detail.DetailMovieActivity"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity
             android:name=".view.activities.mian.MainActivity"
             android:theme="@style/AppThemeNoActionBar"

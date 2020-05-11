@@ -1,6 +1,6 @@
 package nejati.me.omdbapi.view.activities.mian
 
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
+import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 
 /**
  * Authors:
@@ -8,5 +8,5 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.Search
  * Copyright © 2019
  */
 interface MainActivityNavigator {
-    fun onDetail(search: Search?)
+
 }
