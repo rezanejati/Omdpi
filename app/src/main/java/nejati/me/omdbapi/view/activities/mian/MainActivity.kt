@@ -14,6 +14,7 @@ import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
 import nejati.me.omdbapi.base.BaseApplication
 import nejati.me.omdbapi.databinding.ActivityMainBinding
+import nejati.me.omdbapi.view.FragmentModel
 import nejati.me.omdbapi.view.activities.detail.DetailMovieActivity
 import nejati.me.omdbapi.view.adapter.StatePagerAdapter
 import nejati.me.omdbapi.view.fragment.movie.MovieFragment
@@ -30,13 +31,10 @@ import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     MainActivityNavigator, SearchView.OnQueryTextListener {
-    var searchView: SearchView? = null
-    var statePagerAdapter: StatePagerAdapter? = null
 
+    var searchView: SearchView? = null
 
     var needSearch: Boolean = false
-
-
 
     /**
      * Set Variable fot DataBinding
@@ -62,6 +60,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         return MainViewModel::class.java
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,12 +68,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         setSupportActionBar(toolbar)
         setTitle(getString(R.string.app_name))
 
-        statePagerAdapter= StatePagerAdapter(supportFragmentManager,FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
-        statePagerAdapter!!.addFrag("movie",MovieFragment.newInstance())
-        statePagerAdapter!!.addFrag("series",MovieFragment.newInstance())
-        vpMulti!!.adapter=statePagerAdapter
-        tabLayout!!.setupWithViewPager(vpMulti)
-    // viewModel!!.statePagerAdapter=statePagerAdapter
+        viewModel!!.fragments.add(FragmentModel("Movie",MovieFragment.newInstance()))
+        viewModel!!.fragments.add(FragmentModel("Series",MovieFragment.newInstance()))
 
     }
 
@@ -103,22 +98,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
         if (query!!.length > 3) {
             if (vpMulti.currentItem==0) {
-              (statePagerAdapter!!.getItem(0) as MovieFragment).searchOmdbApi("movie", query)
+              ((vpMulti!!.adapter as StatePagerAdapter).getItem(0) as MovieFragment).searchOmdbApi("movie", query)
             } else {
-             (statePagerAdapter!!.getItem(1) as MovieFragment).searchOmdbApi("series", query)
+             ((vpMulti!!.adapter as StatePagerAdapter).getItem(0) as MovieFragment).searchOmdbApi("series", query)
 
             }
 
         }
         return false
     }
-
     override fun onQueryTextChange(query: String?): Boolean {
         needSearch = true
-
-
         return false
     }
-
-
 }

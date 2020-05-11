@@ -48,6 +48,7 @@ abstract class BaseActivity<D : ViewDataBinding, V : ActivityBaseViewModel<*>> :
         AndroidInjection.inject(this)
 
         viewModel = ViewModelProviders.of(this,omdpViewModelFactory).get(getViewModel())
+        viewModel!!.fragmentManager.set(supportFragmentManager)
         dataBinding = DataBindingUtil.setContentView(this, layoutRes)
         dataBinding!!.setVariable(bindingVariable, viewModel)
         dataBinding!!.executePendingBindings()

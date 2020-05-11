@@ -8,10 +8,11 @@
         <import type="android.view.View" />
 
         <import type="androidx.core.content.ContextCompat" />
-
-        <variable
+           <variable
             name="viewModel"
             type="nejati.me.omdbapi.viewModels.main.MainViewModel" />
+
+
 
     </data>
 
@@ -35,6 +36,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_below="@+id/cv"
+            bind:fragmentManager="@{viewModel.fragmentManager}"
+            bind:fragments="@{viewModel.fragments}"
 
             />
 
@@ -58,15 +61,11 @@
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                bind:pager="@{vpMulti}"/>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
 
     </RelativeLayout>
 

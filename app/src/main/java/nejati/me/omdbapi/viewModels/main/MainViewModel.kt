@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.ActivityBaseViewModel
+import nejati.me.omdbapi.view.FragmentModel
 import nejati.me.omdbapi.view.activities.mian.MainActivityNavigator
 import nejati.me.omdbapi.view.adapter.StatePagerAdapter
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
@@ -18,8 +19,8 @@ import javax.inject.Inject
  * Copyright © 2019
  */
 class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
+    var fragments = ObservableArrayList<FragmentModel>()
 
-    var statePagerAdapter : StatePagerAdapter?=null
 
     /**
      * inject retro client

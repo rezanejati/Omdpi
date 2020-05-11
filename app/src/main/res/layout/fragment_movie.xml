@@ -37,10 +37,10 @@
                 android:layout_weight="100"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                bind:itemClick="@{viewModel}"
+                bind:viewModel="@{viewModel}"
                 bind:pageNumber="@{viewModel.requestModel.page}"
                 bind:listitem="@layout/movie_list_item"
-                bind:recyclerAdapter="@{viewModel.omdbpiResultSearchObservable}" />
+                bind:movieItems="@{viewModel.omdbpiResultSearchObservable}" />
 
             <ProgressBar
                 android:id="@+id/pb"
@@ -57,11 +57,11 @@
             layout="@layout/watting_search_layout"
             android:visibility="@{viewModel.showWattingSearchLayout ? View.VISIBLE : View.GONE}" />
 
-<!--        <include
+        <include
             android:id="@+id/llError"
             layout="@layout/error_layout"
             android:visibility="@{viewModel.showErrorLayout ? View.VISIBLE : View.GONE}"
-            bind:viewModel="@{((nejati.me.omdbapi.base.ActivityBaseViewModel) viewModel)}" />-->
+            bind:viewModel="@{((nejati.me.omdbapi.viewModels.movie.MovieViewModel) viewModel)}" />
 
         <include
             android:id="@+id/llLoading"

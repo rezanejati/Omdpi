@@ -1,6 +1,7 @@
 package nejati.me.omdbapi.base
 
 import androidx.databinding.ObservableField
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
@@ -15,4 +16,5 @@ abstract class ActivityBaseViewModel<N> : ViewModel() {
     var showProgressLayout = ObservableField(false)
     var showErrorLayout = ObservableField(false)
     var errorMessage =  ObservableField<String>()
+    var fragmentManager =  ObservableField<FragmentManager>()
 }

@@ -1,5 +1,6 @@
 package nejati.me.omdbapi.viewModels.detail
 
+import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import io.reactivex.disposables.CompositeDisposable
 import nejati.me.omdbapi.api.RxSingleSchedulers
@@ -7,6 +8,7 @@ import nejati.me.omdbapi.base.ActivityBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
 import nejati.me.omdbapi.view.activities.detail.DetailMovieActivityNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.DetailMovieResponse
+import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
@@ -57,6 +59,8 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
     }
 
     var detailMovieResponse = ObservableField<DetailMovieResponse>()
+    var ratingObservable = ObservableArrayList<Rating>()
+
     /**
      * OmdbApi Response
      * @param result Response Of OmdbApiResponse Api
@@ -66,7 +70,7 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
 
         if (result.response!!.toBoolean()){
             detailMovieResponse.set(result)
-
+            ratingObservable.addAll(result.ratings!!)
 
         }else{
             errorMessage.set(result.error)

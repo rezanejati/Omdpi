@@ -7,6 +7,7 @@ import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.FragmentBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
 import nejati.me.omdbapi.view.fragment.movie.MovieNavigator
+import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
@@ -19,13 +20,14 @@ import javax.inject.Inject
  */
 class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
     private var disposable: CompositeDisposable? = null
-    private var api: OmdpApi? = null
     private var rxSingleSchedulers: RxSingleSchedulers? = null
-    public var requestModel : OmdpiRequestModel ? = null
+    private var api: OmdpApi? = null
 
     init {
         disposable = CompositeDisposable()
     }
+    public var requestModel : OmdpiRequestModel ? = null
+
     /**
      *ListObservable : this is a ObservableArrayList and use in filtering
      */

@@ -48,8 +48,7 @@ class DetailMovieResponse {
     var poster: String? = null
     @SerializedName("Ratings")
     @Expose
-    var ratings: List<Rating>? =
-        null
+    var ratings: List<Rating>? = null
     @SerializedName("Metascore")
     @Expose
     var metascore: String? = null
