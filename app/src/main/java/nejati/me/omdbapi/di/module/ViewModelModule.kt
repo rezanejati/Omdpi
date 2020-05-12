@@ -7,11 +7,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import nejati.me.omdbapi.di.scope.ViewModelKey
 import nejati.me.omdbapi.utility.OmdbApiViewModelFactory
-import nejati.me.omdbapi.view.fragment.series.SeriesFragment
 import nejati.me.omdbapi.viewModels.detail.DetailViewModel
 import nejati.me.omdbapi.viewModels.main.MainViewModel
 import nejati.me.omdbapi.viewModels.movie.MovieViewModel
-import nejati.me.omdbapi.viewModels.series.SeriesViewModel
 
 /**
  * Authors:
@@ -38,8 +36,4 @@ abstract class ViewModelModule {
     @ViewModelKey(MovieViewModel::class)
     internal abstract fun movieViewModel(movieViewModel: MovieViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(SeriesViewModel::class)
-    internal abstract fun seriesViewModel(seriesViewModel: SeriesViewModel): ViewModel
 }

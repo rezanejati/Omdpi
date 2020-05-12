@@ -1,7 +1,7 @@
 package nejati.me.omdbapi.viewModels.main
 
 import androidx.databinding.ObservableField
-import nejati.me.omdbapi.view.adapter.CustomClickListener
+import nejati.me.omdbapi.view.adapter.detail.CustomClickListener
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 
 /**

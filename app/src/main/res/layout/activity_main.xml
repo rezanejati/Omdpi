@@ -38,6 +38,7 @@
             android:layout_below="@+id/cv"
             bind:fragmentManager="@{viewModel.fragmentManager}"
             bind:fragments="@{viewModel.fragments}"
+            bind:currentItem="@{viewModel.lastPagerPosition}"
 
             />
 

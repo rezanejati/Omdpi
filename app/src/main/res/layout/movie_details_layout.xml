@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="nejati.me.omdbapi.viewModels.detail.DetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/imdb_rating"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.imdbRating}"
+                style="@style/DetailValueMovieTextViewStyle"
+                android:textColor="@color/yellow"/>
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/imdb_votes"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.imdbVotes}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/language"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.language}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/gener"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.genre}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/awards"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.awards}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/directed_by"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.director}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/written_by"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.writer}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.actors}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/production"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.production}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/country"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.country}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/rated"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.rated}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/dvd"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.DVD}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/meta_score"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.metascore}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/box_office"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.boxOffice}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="WEBSITE"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.website}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/ratings"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvRatings"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginStart="@dimen/_10dp"
+                bind:listitem="@layout/ratings_list_item"
+                bind:viewModel="@{viewModel}"
+                bind:ratingItems="@{viewModel.ratingObservable}"
+
+                />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/plot"
+                style="@style/DetailKeyMovieTextViewStyle" />
+
+            <TextView
+                android:text="@{viewModel.detailMovieResponse.plot}"
+                style="@style/DetailValueMovieTextViewStyle" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

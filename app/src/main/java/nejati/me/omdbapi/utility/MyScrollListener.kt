@@ -27,7 +27,6 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
 
         clipToolbarOffset()
 
-        onMoved(toolbarOffset,dy)
 
         if (toolbarOffset < toolbarHeight && dy > 0 || toolbarOffset > 0 && dy < 0) {
             toolbarOffset += dy
@@ -38,9 +37,6 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
             onEnd()
         }
 
-        if ((recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstCompletelyVisibleItemPosition()== 0){
-            onFirst()
-        }
     }
 
     private fun clipToolbarOffset() {
@@ -51,10 +47,8 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
         }
     }
 
-    abstract fun onMoved(distance: Int, dy: Int)
 
     abstract fun onEnd()
 
-    abstract fun onFirst()
 
 }

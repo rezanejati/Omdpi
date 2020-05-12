@@ -29,26 +29,36 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
  * Reza Nejati <rn.nejati@gmail.com>
  * Copyright © 2019
  */
-object MyBindingAdapters {
+object MainBindingAdapter {
+
+
+
 
     @JvmStatic
-    @BindingAdapter("moviesImage")
-    fun loadImage(view: ImageView, imageUrl: String) {
-        if(TextUtils.isEmpty(imageUrl)) return
-        val options: RequestOptions = RequestOptions()
+    @BindingAdapter("bind:fragmentManager","bind:fragments","bind:currentItem")
+    fun bindMainViewPagerAdapter(viewPager: ViewPager,fragmentManager: FragmentManager,
+                                 fragments: MutableList<FragmentModel>,currentItem:Int) {
+        if (viewPager.adapter == null) {
+            val  mainPagerAdapter =
+                MainPagerAdapter(
+                    fragmentManager,
+                    FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments
+                )
 
-            .centerInside()
-            .error(R.drawable.poster_not_found)
-        Glide.with(view.context).load(imageUrl).apply(options).into(view)
+            viewPager.adapter = mainPagerAdapter
+        }else{
+          viewPager.adapter!!.notifyDataSetChanged()
+        }
+        viewPager.currentItem=currentItem
+
     }
+
 
     @JvmStatic
-    @BindingAdapter("blurelImage")
-    fun loadDetailImage(view: ImageView, imageUrl: String) {
-        Glide.with(view.context).load(imageUrl).apply(RequestOptions.bitmapTransform(
-            BlurTransformation(15, 3)
-        )).into(view)
-
+    @BindingAdapter("bind:pager")
+     fun bindViewPagerTabs(view: TabLayout, pagerView: ViewPager?) {
+        view.setupWithViewPager(pagerView, true)
     }
+
 
 }

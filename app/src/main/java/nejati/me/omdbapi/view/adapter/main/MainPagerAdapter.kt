@@ -1,4 +1,4 @@
-package nejati.me.omdbapi.view.adapter
+package nejati.me.omdbapi.view.adapter.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,7 +11,7 @@ import java.util.*
  * Reza Nejati <reza.n.j.t.i></reza.n.j.t.i>@gmail.com>
  * Copyright © 2017
  */
-class StatePagerAdapter(
+class MainPagerAdapter(
     fm: FragmentManager,
     behavior: Int,
     private val mFragmentList: MutableList<FragmentModel>

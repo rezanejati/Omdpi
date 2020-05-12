@@ -9,4 +9,5 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
  */
 interface MainActivityNavigator {
 
+
 }

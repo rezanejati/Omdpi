@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import nejati.me.omdbapi.base.BaseAdapter
 import nejati.me.omdbapi.base.BaseViewHolder
 import nejati.me.omdbapi.databinding.MovieListItemBinding
-import nejati.me.omdbapi.view.adapter.CustomClickListener
+import nejati.me.omdbapi.view.adapter.detail.CustomClickListener
 import nejati.me.omdbapi.viewModels.main.MoviesItemViewModel
 import nejati.me.omdbapi.viewModels.movie.MovieViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
@@ -44,7 +44,8 @@ class SearchMoviesAdapter(
     }
 
     inner class ComicsListViewHolder(private val adapterBinding: MovieListItemBinding) :
-        BaseViewHolder(adapterBinding.root), CustomClickListener {
+        BaseViewHolder(adapterBinding.root),
+        CustomClickListener {
         private var moviesItemViewModel: MoviesItemViewModel? = null
 
 

@@ -108,6 +108,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
         viewDataBinding!!.setVariable(bindingVariable, viewModel)
         viewDataBinding!!.lifecycleOwner = this
         viewDataBinding!!.executePendingBindings()
+        getLifecycle().addObserver(viewModel!!);
+
     }
 
 

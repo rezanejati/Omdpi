@@ -1,4 +1,4 @@
-package nejati.me.omdbapi.view.adapter;
+package nejati.me.omdbapi.view.adapter.detail;
 
 import nejati.me.omdbapi.viewModels.main.MoviesItemViewModel;
 

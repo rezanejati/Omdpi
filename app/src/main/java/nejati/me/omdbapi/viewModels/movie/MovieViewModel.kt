@@ -1,17 +1,23 @@
 package nejati.me.omdbapi.viewModels.movie
 
+import android.util.Log
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.disposables.CompositeDisposable
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.FragmentBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
+import nejati.me.omdbapi.utility.MyScrollListener
 import nejati.me.omdbapi.view.fragment.movie.MovieNavigator
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
 import javax.inject.Inject
+
 
 /**
  * Authors:
@@ -39,6 +45,7 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
 
     var showWattingSearchLayout = ObservableField(true)
     var showResultRecyclerView = ObservableField(false)
+    var haveNextPage = ObservableField(true)
 
 
     @Inject
@@ -79,6 +86,7 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
 
             moviesResult.addAll(result.search!!)
             setMovieList(moviesResult)
+            haveNextPage.set(!(moviesResult.size+1==result.totalResults!!.toInt()))
 
         }else{
             if (requestModel!!.page!! == 1){
@@ -120,12 +128,15 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
 
 
         if (showPaginationProgress.get()!!) return
+        if (!haveNextPage.get()!!) return
+
         showPaginationProgress.set(true)
         requestModel!!.page = requestModel!!.page!! +1
 
         getData()
 
     }
+
 
 
 }

@@ -87,6 +87,8 @@ dependencies {
     implementation 'com.loopeer.lib:shadow:0.0.4-beta3'
     implementation 'com.airbnb.android:lottie:3.0.7'
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.6'
+    implementation 'com.pixplicity.easyprefs:library:1.9.0'
 
 
 }

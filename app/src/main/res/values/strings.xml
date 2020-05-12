@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">OmdbApi</string>
     <string name="search">search</string>
+    <string name="plot">PLOT</string>
+    <string name="ratings">RATINGS</string>
+    <string name="box_office">BOX OFFICE</string>
+    <string name="meta_score">META SCORE</string>
+    <string name="dvd">DVD</string>
+    <string name="rated">RATED</string>
+    <string name="country">COUNTRY</string>
+    <string name="production">PRODUCTION</string>
+    <string name="written_by">WRITTEN BY</string>
+    <string name="directed_by">DIRECTED BY</string>
+    <string name="awards">AWARDS</string>
+    <string name="gener">GENER</string>
+    <string name="language">LANGUAGE</string>
+    <string name="imdb_votes">IMDB VOTES</string>
+    <string name="imdb_rating">IMDB RATING</string>
+    <string name="released">Released</string>
+    <string name="type">Type</string>
+    <string name="duration">Duration</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="network_not_avilable">Network Not Avilable!</string>
 </resources>

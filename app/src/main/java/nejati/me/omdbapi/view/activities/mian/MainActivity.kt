@@ -2,25 +2,21 @@ package nejati.me.omdbapi.view.activities.mian
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_main.*
 import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
-import nejati.me.omdbapi.base.BaseApplication
 import nejati.me.omdbapi.databinding.ActivityMainBinding
 import nejati.me.omdbapi.view.FragmentModel
-import nejati.me.omdbapi.view.activities.detail.DetailMovieActivity
-import nejati.me.omdbapi.view.adapter.StatePagerAdapter
-import nejati.me.omdbapi.view.fragment.movie.MovieFragment
+import nejati.me.omdbapi.view.adapter.main.MainPagerAdapter
+import nejati.me.omdbapi.view.fragment.movie.SearchResultFragment
 import nejati.me.omdbapi.viewModels.main.MainViewModel
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
-import java.util.*
 
 
 /**
@@ -31,6 +27,9 @@ import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     MainActivityNavigator, SearchView.OnQueryTextListener {
+
+/*    @set : Inject
+    internal var mainPagerAdapter: MainPagerAdapter? = null*/
 
     var searchView: SearchView? = null
 
@@ -51,6 +50,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
      */
     override val layoutRes: Int
         get() = R.layout.activity_main
+
     /**
      * Add View Model
      *
@@ -58,6 +58,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
      */
     override fun getViewModel(): Class<MainViewModel> {
         return MainViewModel::class.java
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 
@@ -68,8 +76,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         setSupportActionBar(toolbar)
         setTitle(getString(R.string.app_name))
 
-        viewModel!!.fragments.add(FragmentModel("Movie",MovieFragment.newInstance()))
-        viewModel!!.fragments.add(FragmentModel("Series",MovieFragment.newInstance()))
+        viewModel!!.addFragmentsIntoViewPager()
+        Log.e("test", Prefs.getInt("pagerPosition", 0).toString())
+
 
     }
 
@@ -90,23 +99,40 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
         searchView!!.setOnQueryTextListener(this)
 
+        when {
+            !TextUtils.isEmpty(viewModel!!.lastSearch.get()) -> {
+                searchView!!.setQuery(viewModel!!.lastSearch.get(), true)
+                searchView!!.setIconified(false)
+                searchView!!.clearFocus()
+            }
+        }
         return true
     }
 
 
     override fun onQueryTextSubmit(query: String?): Boolean {
 
-        if (query!!.length > 3) {
-            if (vpMulti.currentItem==0) {
-              ((vpMulti!!.adapter as StatePagerAdapter).getItem(0) as MovieFragment).searchOmdbApi("movie", query)
-            } else {
-             ((vpMulti!!.adapter as StatePagerAdapter).getItem(0) as MovieFragment).searchOmdbApi("series", query)
+        when {
+            query!!.length > 3 -> {
 
+                viewModel!!.lastSearch.set(query)
+                viewModel!!.lastPagerPosition.set(vpMulti.currentItem )
+
+                when {
+                    vpMulti.currentItem == 0 ->
+                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(0) as SearchResultFragment)
+                            .searchOmdbApi("movie", query)
+                    vpMulti.currentItem == 1 ->
+                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(1) as SearchResultFragment)
+                            .searchOmdbApi("series", query)
+                }
             }
+            else -> showSnackBar(dataBinding!!.root, "please enter minimum 3 characters")
 
         }
         return false
     }
+
     override fun onQueryTextChange(query: String?): Boolean {
         needSearch = true
         return false

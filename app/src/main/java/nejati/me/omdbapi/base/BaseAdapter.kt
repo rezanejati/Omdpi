@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
  */
 abstract class BaseAdapter<T : RecyclerView.ViewHolder?, D> :
     RecyclerView.Adapter<T>() {
-    public fun setFadeAnimation(view: View) {
+    fun setFadeAnimation(view: View) {
         val anim = AlphaAnimation(0.0f, 1.0f)
         anim.duration = 500
         view.startAnimation(anim)

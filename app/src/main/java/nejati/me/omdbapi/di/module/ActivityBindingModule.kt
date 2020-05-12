@@ -14,7 +14,7 @@ import nejati.me.omdbapi.view.activities.mian.MainActivity
 @Module
 abstract class ActivityBindingModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [HomeActivityModule::class])
     internal abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector

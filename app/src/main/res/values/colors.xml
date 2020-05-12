@@ -9,6 +9,7 @@
     <color name="movie_text_color">#666A6C</color>
     <color name="deactive_color">#8E9BA1</color>
     <color name="yellow">#FFE46A</color>
+    <color name="detail_activity_background">#C8000000</color>
 
 
 </resources>

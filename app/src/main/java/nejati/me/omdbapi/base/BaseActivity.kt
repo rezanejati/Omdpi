@@ -13,9 +13,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProviders
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.utility.OmdbApiViewModelFactory
@@ -40,6 +44,9 @@ abstract class BaseActivity<D : ViewDataBinding, V : ActivityBaseViewModel<*>> :
     @get:LayoutRes
     protected abstract val layoutRes: Int
 
+    override fun onStart() {
+        super.onStart()
+    }
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,12 +59,16 @@ abstract class BaseActivity<D : ViewDataBinding, V : ActivityBaseViewModel<*>> :
         dataBinding = DataBindingUtil.setContentView(this, layoutRes)
         dataBinding!!.setVariable(bindingVariable, viewModel)
         dataBinding!!.executePendingBindings()
+        getLifecycle().addObserver(viewModel!!);
 
+        ReactiveNetwork
+            .observeInternetConnectivity()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { isConnectedToInternet ->
+                if(isConnectedToInternet)showSnackBar(dataBinding!!.root,getString(R.string.network_not_avilable)) }
     }
-
-
     protected abstract fun getViewModel(): Class<V>
-
     fun showSnackBar( root : View,message : String){
         Snackbar.make(root,message, Snackbar.LENGTH_LONG)
             .show()
