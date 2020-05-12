@@ -12,9 +12,9 @@ import javax.inject.Inject
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
-abstract class ActivityBaseViewModel<N> : ViewModel(), LifecycleObserver {
+abstract class ActivityBaseViewModel<N> : ViewModel(),LifecycleObserver {
 
     var navigator: N? = null
     var showProgressLayout = ObservableField(false)

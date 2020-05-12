@@ -1,29 +1,28 @@
-package nejati.me.omdbapi.viewModels.detail
+package nejati.me.omdbapi.viewModels.detailActivity
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import io.reactivex.disposables.CompositeDisposable
+import nejati.me.omdbapi.BuildConfig
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.ActivityBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
 import nejati.me.omdbapi.view.activities.detail.DetailMovieActivityNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.DetailMovieResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
 import javax.inject.Inject
 
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() {
     private var disposable: CompositeDisposable? = null
     private var api: OmdpApi? = null
     private var rxSingleSchedulers: RxSingleSchedulers? = null
-    public var requestModel : OmdpiRequestModel ? = null
+    private var requestModel : OmdpiRequestModel ? = null
 
 
 
@@ -43,6 +42,7 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
      * get data from web service
      */
     fun getData() {
+        showProgressLayout.set(true)
         disposable!!.add(api!!.getSearchByID(requestModel!!)
             .compose(rxSingleSchedulers!!.applySchedulers())
             .subscribe({onReady(it)}, { onError()}))
@@ -55,6 +55,7 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
      */
     fun onError() {
         showProgressLayout.set(false)
+        navigator!!.onWebServiceError()
 
     }
 
@@ -73,18 +74,16 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
             ratingObservable.addAll(result.ratings!!)
 
         }else{
-            errorMessage.set(result.error)
-
-
+            navigator!!.onWebServiceMessage(result.error!!)
 
         }
 
     }
-    fun callOmdbApi() {
-        showProgressLayout.set(true)
-
+    fun getDetailMovie(imdbId: String) {
+        requestModel = OmdpiRequestModel()
+        requestModel!!.apikey = BuildConfig.API_KEY
+        requestModel!!.imdbId = imdbId
         getData()
-
     }
 
 

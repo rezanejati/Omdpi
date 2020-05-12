@@ -8,10 +8,10 @@
         <import type="android.view.View" />
 
         <import type="androidx.core.content.ContextCompat" />
-           <variable
-            name="viewModel"
-            type="nejati.me.omdbapi.viewModels.main.MainViewModel" />
 
+        <variable
+            name="viewModel"
+            type="nejati.me.omdbapi.viewModels.mainActivity.MainViewModel" />
 
 
     </data>
@@ -21,26 +21,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:layout_below="@+id/toolbar"
+
+            app:drwableImage="@{@drawable/main_background_image}"
+            android:contentDescription="@string/movie_poster" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+
+            android:background="@color/detail_activity_background" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary" />
-
-
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpMulti"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_below="@+id/cv"
-            bind:fragmentManager="@{viewModel.fragmentManager}"
-            bind:fragments="@{viewModel.fragments}"
-            bind:currentItem="@{viewModel.lastPagerPosition}"
-
-            />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv"
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             app:strokeWidth="1dp"
+            app:cardElevation="2dp"
             app:strokeColor="@color/colorPrimary"
             android:layout_below="@+id/toolbar"
             app:cardCornerRadius="4dp">
@@ -63,10 +66,21 @@
                 app:tabTextColor="@color/colorPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                bind:pager="@{vpMulti}"/>
+                bind:pager="@{vpMulti}" />
 
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpMulti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@+id/cv"
+            bind:fragmentManager="@{viewModel.fragmentManager}"
+            bind:fragments="@{viewModel.fragments}"
+            bind:currentItem="@{viewModel.lastPagerPosition}"
+
+            />
 
     </RelativeLayout>
 

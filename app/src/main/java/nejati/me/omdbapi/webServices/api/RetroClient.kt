@@ -11,10 +11,17 @@ import retrofit2.http.Query
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 interface RetroClient {
-
+    /**
+     *
+     * @param s Search Value
+     * @param apikey OmdbApi Key
+     * @param type Series Or Movies
+     * @param page pagination
+     * @return
+     */
     @GET(Const.BASEURl)
     fun getMoviesList(
         @Query("s") s: String,
@@ -23,7 +30,12 @@ interface RetroClient {
         @Query("page") page: Int
     ): Single<OmdbpiSearchrResponse>
 
-
+    /**
+     *
+     * @param apikey OmdbApi Key
+     * @param i Imdb Movie Id
+     * @return
+     */
     @GET(Const.BASEURl)
     fun getSearchById(
         @Query("apikey") apikey: String,

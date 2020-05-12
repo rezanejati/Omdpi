@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.detail.DetailViewModel" />
+            type="nejati.me.omdbapi.viewModels.detailActivity.DetailViewModel" />
     </data>
 
     <LinearLayout

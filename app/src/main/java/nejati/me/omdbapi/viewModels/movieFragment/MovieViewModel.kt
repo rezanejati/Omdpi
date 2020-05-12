@@ -1,17 +1,12 @@
-package nejati.me.omdbapi.viewModels.movie
+package nejati.me.omdbapi.viewModels.movieFragment
 
-import android.util.Log
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseBindingListener
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.disposables.CompositeDisposable
+import nejati.me.omdbapi.BuildConfig
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.FragmentBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
-import nejati.me.omdbapi.utility.MyScrollListener
 import nejati.me.omdbapi.view.fragment.movie.MovieNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
@@ -22,45 +17,65 @@ import javax.inject.Inject
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
+
     private var disposable: CompositeDisposable? = null
+
     private var rxSingleSchedulers: RxSingleSchedulers? = null
+
     private var api: OmdpApi? = null
+
+    public var requestModel: OmdpiRequestModel? = null
+
+    var showPaginationProgress = ObservableField<Boolean>()
+
+    val moviesResult = ObservableArrayList<Search>()
+
+    var showWattingSearchLayout = ObservableField(true)
+
+    var showResultRecyclerView = ObservableField(false)
+
+    var haveNextPage = ObservableField(true)
 
     init {
         disposable = CompositeDisposable()
     }
-    public var requestModel : OmdpiRequestModel ? = null
 
     /**
-     *ListObservable : this is a ObservableArrayList and use in filtering
+     * inject retro client
      */
-    var omdbpiResultSearchObservable = ObservableArrayList<Search>()
-
-    var showPaginationProgress = ObservableField<Boolean>()
-
-    val moviesResult = ArrayList<Search>()
-
-    var showWattingSearchLayout = ObservableField(true)
-    var showResultRecyclerView = ObservableField(false)
-    var haveNextPage = ObservableField(true)
-
-
     @Inject
     constructor(api: OmdpApi, rxSingleSchedulers: RxSingleSchedulers) : this() {
-        this.api=api
-        this.rxSingleSchedulers=rxSingleSchedulers
+        this.api = api
+        this.rxSingleSchedulers = rxSingleSchedulers
     }
 
     /**
      * get data from web service
      */
     fun getData() {
+
+        onStartWebservice();
+
         disposable!!.add(api!!.getMovies(requestModel!!)
             .compose(rxSingleSchedulers!!.applySchedulers())
-            .subscribe({onReady(it)}, { onError()}))
+            .subscribe({ onReady(it) }, { onErrorRetroClient() })
+        )
+    }
+
+    fun onStartWebservice() {
+        moviesResult.clear()
+        showProgressLayout.set(true)
+        showWattingSearchLayout.set(false)
+        showErrorLayout.set(false)
+    }
+
+    fun onFinishWebService() {
+        showProgressLayout.set(false)
+        showResultRecyclerView.set(true)
+        showPaginationProgress.set(false)
     }
 
 
@@ -68,8 +83,9 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
      * the web service error message
      * @param message
      */
-    fun onError() {
-        showProgressLayout.set(false)
+    fun onErrorRetroClient() {
+        showErrorLayout.set(true)
+        errorMessage.set("")
 
     }
 
@@ -78,66 +94,62 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
      * @param result Response Of OmdbApiResponse Api
      */
     fun onReady(result: OmdbpiSearchrResponse) {
-        showProgressLayout.set(false)
-        showResultRecyclerView.set(true)
-        showPaginationProgress.set(false)
 
-        if (result.response!!.toBoolean()){
+        onFinishWebService()
+        if (result.response!!.toBoolean()) {
 
             moviesResult.addAll(result.search!!)
-            setMovieList(moviesResult)
-            haveNextPage.set(!(moviesResult.size+1==result.totalResults!!.toInt()))
+            haveNextPage.set(!(moviesResult.size + 1 == result.totalResults!!.toInt()))
 
-        }else{
-            if (requestModel!!.page!! == 1){
+        } else {
+            if (requestModel!!.page!! == 1) {
                 showErrorLayout.set(true)
                 showResultRecyclerView.set(false)
                 errorMessage.set(result.error)
             }
 
 
-
         }
 
     }
 
-    fun callOmdbApi() {
-        moviesResult.clear()
-
-        showProgressLayout.set(true)
-        showWattingSearchLayout.set(false)
-        showErrorLayout.set(false)
-
-        getData()
-
-    }
-    fun setMovieList(list: List<Search>) {
-        omdbpiResultSearchObservable.clear()
-        omdbpiResultSearchObservable.addAll(list)
-
-
-
-    }
-
+    /**
+     * On Click Movie Grid Recycler Listener
+     * @param position of Grid Recycler
+     */
     fun onMoviesItemClick(position: Int) {
-        navigator!!.onDetail(omdbpiResultSearchObservable.get(position))
+        navigator!!.onStartDetailMovieActivity(moviesResult.get(position))
 
     }
 
-    fun callComicsWebServiceForNextPage() {
-
+    /**
+     * Call Webservice For Ger Next Page
+     */
+    fun callOmdbApiNextPage() {
 
         if (showPaginationProgress.get()!!) return
         if (!haveNextPage.get()!!) return
 
         showPaginationProgress.set(true)
-        requestModel!!.page = requestModel!!.page!! +1
+        requestModel!!.page = requestModel!!.page!! + 1
 
         getData()
 
     }
 
+    /**
+     * Create Request For Call OmdbApi Webservice
+     */
+    fun searchOmdbApi(searchType: String, searchValue: String) {
 
+        requestModel = OmdpiRequestModel()
+        requestModel!!.type = searchType
+        requestModel!!.searchName = searchValue
+        requestModel!!.apikey = BuildConfig.API_KEY
+        requestModel!!.page = 1
+        getData()
+
+    }
 
 }
 

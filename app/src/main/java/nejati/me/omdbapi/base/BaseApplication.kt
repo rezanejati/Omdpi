@@ -24,6 +24,7 @@ class BaseApplication : Application(), HasActivityInjector, LifecycleObserver,
 
     @set : Inject
     var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>? = null
+
     @set : Inject
     var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
     override fun onCreate() {
@@ -36,6 +37,7 @@ class BaseApplication : Application(), HasActivityInjector, LifecycleObserver,
             .application(this)
             .build()
             .inject(this)
+
         Prefs.Builder()
             .setContext(this)
             .setMode(ContextWrapper.MODE_PRIVATE)

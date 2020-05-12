@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.movie.MovieViewModel" />
+            type="nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel" />
     </data>
 
     <LinearLayout

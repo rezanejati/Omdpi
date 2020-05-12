@@ -1,13 +1,13 @@
-package nejati.me.omdbapi.viewModels.main
+package nejati.me.omdbapi.viewModels.mainActivity
 
 import androidx.databinding.ObservableField
-import nejati.me.omdbapi.view.adapter.detail.CustomClickListener
+import nejati.me.omdbapi.view.adapter.movieFragment.CustomClickListener
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 class MoviesItemViewModel(
     result: Search?,

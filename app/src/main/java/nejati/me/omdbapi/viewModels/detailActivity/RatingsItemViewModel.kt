@@ -1,4 +1,4 @@
-package nejati.me.omdbapi.viewModels.detail
+package nejati.me.omdbapi.viewModels.detailActivity
 
 import androidx.databinding.ObservableField
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
@@ -6,7 +6,7 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 class RatingsItemViewModel(
     ratings: Rating

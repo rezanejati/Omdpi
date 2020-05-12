@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import nejati.me.omdbapi.base.BaseAdapter
 import nejati.me.omdbapi.base.BaseViewHolder
 import nejati.me.omdbapi.databinding.RatingsListItemBinding
-import nejati.me.omdbapi.viewModels.detail.DetailViewModel
-import nejati.me.omdbapi.viewModels.detail.RatingsItemViewModel
+import nejati.me.omdbapi.viewModels.detailActivity.DetailViewModel
+import nejati.me.omdbapi.viewModels.detailActivity.RatingsItemViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 
 
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 class RatingsAdapter(
     private val searchItems: MutableList<Rating>,
@@ -31,7 +31,7 @@ class RatingsAdapter(
             LayoutInflater.from(viewGroup.context),
             viewGroup, false)
 
-        return ComicsListViewHolder(adapterBinding)
+        return RatingListViewHolder(adapterBinding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -42,7 +42,7 @@ class RatingsAdapter(
         return searchItems.size
     }
 
-    inner class ComicsListViewHolder(private val adapterBinding: RatingsListItemBinding) :
+    inner class RatingListViewHolder(private val adapterBinding: RatingsListItemBinding) :
         BaseViewHolder(adapterBinding.root) {
         private var moviesItemViewModel: RatingsItemViewModel? = null
 

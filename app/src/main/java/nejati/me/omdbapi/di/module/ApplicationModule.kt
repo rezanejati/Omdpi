@@ -9,7 +9,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 @Module(includes = [ViewModelModule::class])
 abstract class ApplicationModule {

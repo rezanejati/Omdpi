@@ -13,16 +13,15 @@ import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
 import nejati.me.omdbapi.databinding.ActivityMainBinding
-import nejati.me.omdbapi.view.FragmentModel
-import nejati.me.omdbapi.view.adapter.main.MainPagerAdapter
+import nejati.me.omdbapi.view.adapter.mainActivity.MainPagerAdapter
 import nejati.me.omdbapi.view.fragment.movie.SearchResultFragment
-import nejati.me.omdbapi.viewModels.main.MainViewModel
+import nejati.me.omdbapi.viewModels.mainActivity.MainViewModel
 
 
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
@@ -60,25 +59,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         return MainViewModel::class.java
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel!!.navigator = this
         setSupportActionBar(toolbar)
-        setTitle(getString(R.string.app_name))
+        setTitle(getString(R.string.search_movie_or_series))
 
         viewModel!!.addFragmentsIntoViewPager()
-        Log.e("test", Prefs.getInt("pagerPosition", 0).toString())
-
 
     }
 

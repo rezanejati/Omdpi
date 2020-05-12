@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.detail.RatingsItemViewModel" />
+            type="nejati.me.omdbapi.viewModels.detailActivity.RatingsItemViewModel" />
 
     </data>
     <LinearLayout

@@ -1,10 +1,9 @@
-package nejati.me.omdbapi.view.adapter.main
+package nejati.me.omdbapi.view.adapter.mainActivity
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import nejati.me.omdbapi.view.FragmentModel
-import java.util.*
+import nejati.me.omdbapi.model.FragmentModel
 
 /**
  * Authors:

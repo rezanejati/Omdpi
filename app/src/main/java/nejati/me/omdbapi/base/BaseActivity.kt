@@ -28,7 +28,7 @@ import javax.inject.Inject
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 abstract class BaseActivity<D : ViewDataBinding, V : ActivityBaseViewModel<*>> : AppCompatActivity()
 {
@@ -59,18 +59,23 @@ abstract class BaseActivity<D : ViewDataBinding, V : ActivityBaseViewModel<*>> :
         dataBinding = DataBindingUtil.setContentView(this, layoutRes)
         dataBinding!!.setVariable(bindingVariable, viewModel)
         dataBinding!!.executePendingBindings()
-        getLifecycle().addObserver(viewModel!!);
+        getLifecycle().addObserver(viewModel!!)
 
+
+        //Network listener
         ReactiveNetwork
             .observeInternetConnectivity()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { isConnectedToInternet ->
-                if(isConnectedToInternet)showSnackBar(dataBinding!!.root,getString(R.string.network_not_avilable)) }
+                if(!isConnectedToInternet)showSnackBar(dataBinding!!.root,getString(R.string.network_not_avilable)) }
     }
     protected abstract fun getViewModel(): Class<V>
+
     fun showSnackBar( root : View,message : String){
         Snackbar.make(root,message, Snackbar.LENGTH_LONG)
             .show()
     }
+
+
 }

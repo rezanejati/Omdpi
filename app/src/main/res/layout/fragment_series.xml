@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.main.MainViewModel" />
+            type="nejati.me.omdbapi.viewModels.mainActivity.MainViewModel" />
     </data>
 
     <RelativeLayout

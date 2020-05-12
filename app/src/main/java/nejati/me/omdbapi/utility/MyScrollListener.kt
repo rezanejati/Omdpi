@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListener() {
 

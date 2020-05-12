@@ -5,16 +5,15 @@ import android.view.ViewGroup
 import nejati.me.omdbapi.base.BaseAdapter
 import nejati.me.omdbapi.base.BaseViewHolder
 import nejati.me.omdbapi.databinding.MovieListItemBinding
-import nejati.me.omdbapi.view.adapter.detail.CustomClickListener
-import nejati.me.omdbapi.viewModels.main.MoviesItemViewModel
-import nejati.me.omdbapi.viewModels.movie.MovieViewModel
+import nejati.me.omdbapi.view.adapter.movieFragment.CustomClickListener
+import nejati.me.omdbapi.viewModels.mainActivity.MoviesItemViewModel
+import nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
-
 
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 class SearchMoviesAdapter(
     private val searchItems: MutableList<Search>,
@@ -32,7 +31,7 @@ class SearchMoviesAdapter(
             LayoutInflater.from(viewGroup.context),
             viewGroup, false)
 
-        return ComicsListViewHolder(adapterBinding)
+        return MovieListViewHolder(adapterBinding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -43,11 +42,10 @@ class SearchMoviesAdapter(
         return searchItems.size
     }
 
-    inner class ComicsListViewHolder(private val adapterBinding: MovieListItemBinding) :
+    inner class MovieListViewHolder(private val adapterBinding: MovieListItemBinding) :
         BaseViewHolder(adapterBinding.root),
         CustomClickListener {
         private var moviesItemViewModel: MoviesItemViewModel? = null
-
 
         override fun onBind(position: Int) {
             if (searchItems.size > 0) {
@@ -59,8 +57,7 @@ class SearchMoviesAdapter(
             }
         }
 
-
-        override fun itemClicked(f: MoviesItemViewModel) {
+        override fun itemClicked(t: MoviesItemViewModel?) {
             mainViewModel.onMoviesItemClick(adapterPosition)
         }
     }
