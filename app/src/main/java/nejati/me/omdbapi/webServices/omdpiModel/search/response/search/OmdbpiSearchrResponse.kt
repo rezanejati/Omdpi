@@ -1,4 +1,4 @@
-package nejati.me.omdbapi.webServices.omdpiModel.search.response
+package nejati.me.omdbapi.webServices.omdpiModel.search.response.search
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

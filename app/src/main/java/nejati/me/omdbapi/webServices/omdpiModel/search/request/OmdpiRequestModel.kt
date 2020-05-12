@@ -10,4 +10,6 @@ class OmdpiRequestModel {
     var searchName: String? = null
     var apikey: String? = null
     var type: String? = null
+    var page: Int? = null
+    var imdbId: String? = null
 }
