@@ -11,6 +11,7 @@ import nejati.me.omdbapi.view.fragment.movie.MovieNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -57,16 +58,14 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
      */
     fun getData() {
 
-        onStartWebservice();
 
         disposable!!.add(api!!.getMovies(requestModel!!)
-            .compose(rxSingleSchedulers!!.applySchedulers())
+            .compose(rxSingleSchedulers!!.applySchedulers()).delay(3000,TimeUnit.MILLISECONDS)
             .subscribe({ onReady(it) }, { onErrorRetroClient() })
         )
     }
 
     fun onStartWebservice() {
-        moviesResult.clear()
         showProgressLayout.set(true)
         showWattingSearchLayout.set(false)
         showErrorLayout.set(false)
@@ -141,12 +140,14 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
      * Create Request For Call OmdbApi Webservice
      */
     fun searchOmdbApi(searchType: String, searchValue: String) {
+        moviesResult.clear()
 
         requestModel = OmdpiRequestModel()
         requestModel!!.type = searchType
         requestModel!!.searchName = searchValue
         requestModel!!.apikey = BuildConfig.API_KEY
         requestModel!!.page = 1
+        onStartWebservice();
         getData()
 
     }

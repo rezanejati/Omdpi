@@ -43,7 +43,7 @@ object SearchMovieBindingAdapters {
 
         recyclerView.addOnScrollListener(object : MyScrollListener(recyclerView.context) {
             override fun onEnd() {
-                mainViewModel.callOmdbApiNextPage()
+                 mainViewModel.callOmdbApiNextPage()
             }
         })
     }
