@@ -113,6 +113,7 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="100"
                                 android:orientation="vertical">
 
@@ -128,14 +129,14 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="150"
-                                android:gravity="center"
+                                android:layout_weight="120"
+                                android:gravity="center|start"
                                 android:orientation="horizontal">
 
                                 <ImageView
                                     android:layout_width="@dimen/_35dp"
                                     android:layout_height="@dimen/_35dp"
-                                    android:layout_marginRight="@dimen/_10dp"
+                                    android:layout_marginEnd="@dimen/_10dp"
                                     android:contentDescription="@string/star_image"
                                     android:src="@drawable/star" />
 
@@ -173,6 +174,7 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
                                 android:layout_weight="100"
                                 android:orientation="vertical">
 

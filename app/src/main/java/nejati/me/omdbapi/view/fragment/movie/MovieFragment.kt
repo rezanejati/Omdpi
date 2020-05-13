@@ -6,7 +6,7 @@ import android.view.View
 import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseFragment
-import nejati.me.omdbapi.databinding.FragmentResultSearchBinding
+import nejati.me.omdbapi.databinding.FragmentMovieBinding
 import nejati.me.omdbapi.view.activities.detail.DetailMovieActivity
 import nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
@@ -17,7 +17,7 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
  * Copyright © 2020
  */
 class MovieFragment() :
-    BaseFragment<FragmentResultSearchBinding, MovieViewModel>(),
+    BaseFragment<FragmentMovieBinding, MovieViewModel>(),
     MovieNavigator {
 
     companion object {
@@ -42,7 +42,7 @@ class MovieFragment() :
      * @return
      */
     override val layoutRes: Int
-        get() = R.layout.fragment_result_search
+        get() = R.layout.fragment_movie
 
     override fun getViewModel(): Class<MovieViewModel> {
         return MovieViewModel::class.java
