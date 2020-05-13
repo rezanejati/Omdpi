@@ -13,7 +13,6 @@ import nejati.me.omdbapi.view.fragment.movie.MovieNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -98,12 +97,12 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
     fun onReady(result: OmdbpiSearchrResponse) {
 
         onFinishWebService()
-        when{
-            result.response!!.toBoolean() ->{
+        when {
+            result.response!!.toBoolean() -> {
                 moviesResult.addAll(result.search!!)
                 haveNextPage.set(!(moviesResult.size + 1 == result.totalResults!!.toInt()))
             }
-            else ->{
+            else -> {
                 if (requestModel!!.page!! == 1) {
                     showErrorLayout.set(true)
                     showResultRecyclerView.set(false)
