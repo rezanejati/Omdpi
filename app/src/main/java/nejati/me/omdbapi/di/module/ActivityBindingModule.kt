@@ -9,7 +9,7 @@ import nejati.me.omdbapi.view.activities.mian.MainActivity
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 @Module
 abstract class ActivityBindingModule {

@@ -1,46 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
         <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.detail.RatingsItemViewModel" />
+            type="nejati.me.omdbapi.viewModels.detailActivity.RatingsItemViewModel" />
 
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_2dp"
+        android:background="@color/rating_background_color"
         android:orientation="horizontal"
-        android:background="#A73C3C3C"
-        android:padding="2dp"
-        android:layout_margin="2dp">
-
+        android:padding="@dimen/_2dp">
 
         <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.ratingItems.source}"
-            android:gravity="center|left"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize_14sp"
-            android:fontFamily="monospace" />
+            style="@style/DetailValueMovieTextViewStyle"
+            android:layout_width="@dimen/_100dp"
+            android:text="@{viewModel.ratingItems.source}" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.ratingItems.value}"
-            android:gravity="center|left"
-            android:layout_marginLeft="@dimen/_10dp"
-            android:fontFamily="monospace"
-            android:textColor="@color/white"
-
-            android:textSize="@dimen/textSize_14sp" />
-
+            style="@style/DetailValueMovieTextViewStyle"
+            android:text="@{viewModel.ratingItems.value}" />
     </LinearLayout>
-
-
 </layout>

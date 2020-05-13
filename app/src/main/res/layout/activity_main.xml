@@ -5,15 +5,9 @@
 
     <data>
 
-        <import type="android.view.View" />
-
-        <import type="androidx.core.content.ContextCompat" />
-           <variable
+        <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.main.MainViewModel" />
-
-
-
+            type="nejati.me.omdbapi.viewModels.mainActivity.MainViewModel" />
     </data>
 
     <RelativeLayout
@@ -21,51 +15,60 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/movie_poster"
+            android:scaleType="fitXY"
+            app:drwableImage="@{@drawable/main_background_image}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/detail_activity_background" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary" />
 
-
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpMulti"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_below="@+id/cv"
-            bind:fragmentManager="@{viewModel.fragmentManager}"
-            bind:fragments="@{viewModel.fragments}"
-
-            />
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/colorPrimary"
             android:layout_below="@+id/toolbar"
-            app:cardCornerRadius="4dp">
+            android:layout_margin="@dimen/margin_4dp"
+            app:cardCornerRadius="@dimen/_2dp"
+            app:cardElevation="@dimen/_2dp"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="@dimen/_1dp">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
-                app:tabIndicatorGravity="stretch"
-                app:tabMaxWidth="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_layout_height"
                 app:tabGravity="fill"
-                app:tabMode="fixed"
                 app:tabIndicatorColor="@color/colorPrimary"
+                app:tabIndicatorGravity="stretch"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/colorPrimary"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                bind:pager="@{vpMulti}"/>
-
+                bind:pager="@{vpMulti}" />
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpMulti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cv"
+            android:gravity="center"
+            bind:currentItem="@{viewModel.lastPagerPosition}"
+            bind:fragmentManager="@{viewModel.fragmentManager}"
+            bind:fragments="@{viewModel.fragments}" />
 
     </RelativeLayout>
 

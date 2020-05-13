@@ -10,23 +10,13 @@
     android:orientation="vertical"
     android:visibility="gone"
   >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/textSize_16sp"
-        android:text="Please wait we are searching for your request"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        />
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lvLoading"
         android:layout_marginTop="@dimen/_10dp"
-        android:layout_width="@dimen/_200dp"
-        android:layout_height="@dimen/_200dp"
+        android:layout_width="@dimen/_100dp"
+        android:layout_height="@dimen/_100dp"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="lottie/movie-loading.json"
+        app:lottie_fileName="lottie/movie_loading.json"
         app:lottie_loop="true" />
 
 

@@ -2,31 +2,24 @@ package nejati.me.omdbapi.view.activities.mian
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
-import nejati.me.omdbapi.base.BaseApplication
 import nejati.me.omdbapi.databinding.ActivityMainBinding
-import nejati.me.omdbapi.view.FragmentModel
-import nejati.me.omdbapi.view.activities.detail.DetailMovieActivity
-import nejati.me.omdbapi.view.adapter.StatePagerAdapter
+import nejati.me.omdbapi.view.adapter.mainActivity.MainPagerAdapter
 import nejati.me.omdbapi.view.fragment.movie.MovieFragment
-import nejati.me.omdbapi.viewModels.main.MainViewModel
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
-import java.util.*
+import nejati.me.omdbapi.viewModels.mainActivity.MainViewModel
 
 
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
@@ -51,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
      */
     override val layoutRes: Int
         get() = R.layout.activity_main
+
     /**
      * Add View Model
      *
@@ -60,16 +54,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         return MainViewModel::class.java
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel!!.navigator = this
-        setSupportActionBar(toolbar)
-        setTitle(getString(R.string.app_name))
 
-        viewModel!!.fragments.add(FragmentModel("Movie",MovieFragment.newInstance()))
-        viewModel!!.fragments.add(FragmentModel("Series",MovieFragment.newInstance()))
+        setSupportActionBar(toolbar)
+
+        title = getString(R.string.search_movie_or_series)
+
+        viewModel!!.addFragmentsIntoViewPager()
 
     }
 
@@ -80,35 +73,60 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
         searchView = menu.findItem(R.id.action_search)
-            .getActionView() as SearchView
+            .actionView as SearchView
 
         searchView!!.setSearchableInfo(
             searchManager.getSearchableInfo(componentName)
         )
 
-        searchView!!.setMaxWidth(Integer.MAX_VALUE)
+        searchView!!.maxWidth = Integer.MAX_VALUE
 
         searchView!!.setOnQueryTextListener(this)
 
+        when {
+            !TextUtils.isEmpty(viewModel!!.lastSearch.get()) -> {
+                searchView!!.setQuery(viewModel!!.lastSearch.get(), true)
+                searchView!!.isIconified = false
+                searchView!!.clearFocus()
+            }
+        }
         return true
     }
 
 
     override fun onQueryTextSubmit(query: String?): Boolean {
 
-        if (query!!.length > 3) {
-            if (vpMulti.currentItem==0) {
-              ((vpMulti!!.adapter as StatePagerAdapter).getItem(0) as MovieFragment).searchOmdbApi("movie", query)
-            } else {
-             ((vpMulti!!.adapter as StatePagerAdapter).getItem(0) as MovieFragment).searchOmdbApi("series", query)
+        when {
+            query!!.length > 2 -> {
+                viewModel!!.lastSearch.set(query)
+                viewModel!!.lastPagerPosition.set(vpMulti.currentItem)
 
+                when {
+                    vpMulti.currentItem == 0 ->
+                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(0) as MovieFragment)
+                            .searchOmdbApi("movie", query)
+                    vpMulti.currentItem == 1 ->
+                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(1) as MovieFragment)
+                            .searchOmdbApi("series", query)
+                }
             }
+            else -> showSnackBar(dataBinding!!.root, getString(R.string.least_3_characters))
 
         }
         return false
     }
+
     override fun onQueryTextChange(query: String?): Boolean {
         needSearch = true
         return false
+    }
+
+    override fun onNetworkStatus(isConnectedToInternet: Boolean) {
+        when {
+            !isConnectedToInternet -> showSnackBar(
+                dataBinding!!.root,
+                getString(R.string.network_not_available)
+            )
+        }
     }
 }

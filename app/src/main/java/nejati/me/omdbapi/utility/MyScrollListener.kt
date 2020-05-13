@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
- * Copyright © 2019
+ * Copyright © 2020
  */
 abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListener() {
 
@@ -27,20 +27,17 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
 
         clipToolbarOffset()
 
-        onMoved(toolbarOffset,dy)
 
         if (toolbarOffset < toolbarHeight && dy > 0 || toolbarOffset > 0 && dy < 0) {
             toolbarOffset += dy
         }
 
         if ((recyclerView.layoutManager as LinearLayoutManager?)!!.findLastVisibleItemPosition() ==
-            (recyclerView.layoutManager as LinearLayoutManager?)!!.itemCount - 1) {
+            (recyclerView.layoutManager as LinearLayoutManager?)!!.itemCount - 1
+        ) {
             onEnd()
         }
 
-        if ((recyclerView.layoutManager as LinearLayoutManager?)!!.findFirstCompletelyVisibleItemPosition()== 0){
-            onFirst()
-        }
     }
 
     private fun clipToolbarOffset() {
@@ -51,10 +48,8 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
         }
     }
 
-    abstract fun onMoved(distance: Int, dy: Int)
 
     abstract fun onEnd()
 
-    abstract fun onFirst()
 
 }

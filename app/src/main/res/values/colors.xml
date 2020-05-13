@@ -7,8 +7,11 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="movie_text_color">#666A6C</color>
-    <color name="deactive_color">#8E9BA1</color>
+    <color name="gray_light_color">#8E9BA1</color>
     <color name="yellow">#FFE46A</color>
+    <color name="detail_activity_background">#AE000000</color>
+    <color name="result_recycler_background_color">#EFEFEF</color>
+    <color name="rating_background_color">#A73C3C3C</color>
 
 
 </resources>

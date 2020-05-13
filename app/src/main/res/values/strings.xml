@@ -1,4 +1,32 @@
 <resources>
     <string name="app_name">OmdbApi</string>
     <string name="search">search</string>
+    <string name="plot">PLOT</string>
+    <string name="ratings">RATINGS</string>
+    <string name="box_office">BOX OFFICE</string>
+    <string name="meta_score">META SCORE</string>
+    <string name="dvd">DVD</string>
+    <string name="rated">RATED</string>
+    <string name="country">COUNTRY</string>
+    <string name="production">PRODUCTION</string>
+    <string name="written_by">WRITTEN BY</string>
+    <string name="directed_by">DIRECTED BY</string>
+    <string name="awards">AWARDS</string>
+    <string name="gener">GENER</string>
+    <string name="language">LANGUAGE</string>
+    <string name="imdb_votes">IMDB VOTES</string>
+    <string name="imdb_rating">IMDB RATING</string>
+    <string name="released">Released</string>
+    <string name="type">Type</string>
+    <string name="duration">Duration</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="network_not_available">Network Not Available!</string>
+    <string name="webservice_not_available">Web Service is not available</string>
+    <string name="search_movie_or_series">Search movie or series</string>
+    <string name="we_are_waiting">We are waiting for your search… </string>
+    <string name="please_wait_we_are_searching_for_your_request">Please wait we are searching for your request</string>
+    <string name="voting_range">/10</string>
+    <string name="star_image">star image</string>
+    <string name="least_3_characters">Please enter at least 3 characters</string>
+    <string name="introduce">I am Reza Nejati and you are seeing my challenge…</string>
 </resources>

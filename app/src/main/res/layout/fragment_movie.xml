@@ -6,41 +6,37 @@
     <data>
 
         <import type="android.view.View" />
+
         <import type="androidx.core.content.ContextCompat" />
 
         <variable
             name="viewModel"
-            type="nejati.me.omdbapi.viewModels.movie.MovieViewModel" />
+            type="nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-       >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/llRecyclerContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/result_recycler_background_color"
             android:orientation="vertical"
-            android:background="#EFEFEF"
-            android:visibility="@{viewModel.showResultRecyclerView ? View.VISIBLE : View.GONE}"
-
-
-            >
+            android:visibility="@{viewModel.showResultRecyclerView ? View.VISIBLE : View.GONE}">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMovies"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="100"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                bind:viewModel="@{viewModel}"
-                bind:pageNumber="@{viewModel.requestModel.page}"
                 bind:listitem="@layout/movie_list_item"
-                bind:movieItems="@{viewModel.omdbpiResultSearchObservable}" />
+                bind:movieItems="@{viewModel.moviesResult}"
+                bind:pageNumber="@{viewModel.resultPage}"
+                bind:viewModel="@{viewModel}" />
 
             <ProgressBar
                 android:id="@+id/pb"
@@ -51,17 +47,16 @@
 
         </LinearLayout>
 
-
         <include
-            android:id="@+id/llWaitting"
-            layout="@layout/watting_search_layout"
-            android:visibility="@{viewModel.showWattingSearchLayout ? View.VISIBLE : View.GONE}" />
+            android:id="@+id/llWaiting"
+            layout="@layout/waiting_search_layout"
+            android:visibility="@{viewModel.showWaitingSearchLayout ? View.VISIBLE : View.GONE}" />
 
         <include
             android:id="@+id/llError"
             layout="@layout/error_layout"
             android:visibility="@{viewModel.showErrorLayout ? View.VISIBLE : View.GONE}"
-            bind:viewModel="@{((nejati.me.omdbapi.viewModels.movie.MovieViewModel) viewModel)}" />
+            bind:viewModel="@{((nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel) viewModel)}" />
 
         <include
             android:id="@+id/llLoading"

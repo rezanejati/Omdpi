@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_4dp">4dp</dimen>
+    <dimen name="tab_layout_height">40dp</dimen>
+    <dimen name="_35dp">35dp</dimen>
+</resources>
