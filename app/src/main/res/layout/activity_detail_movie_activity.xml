@@ -161,7 +161,7 @@
                                         <TextView
                                             style="@style/TopDetailKeyMovieTextViewStyle"
                                             android:text="@string/voting_range"
-                                            android:textSize="@dimen/textSize_14sp" />
+                                            android:textSize="@dimen/textSize_12sp" />
                                     </LinearLayout>
 
                                     <TextView
