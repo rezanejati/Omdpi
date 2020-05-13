@@ -4,17 +4,15 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
-import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_main.*
 import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
 import nejati.me.omdbapi.databinding.ActivityMainBinding
 import nejati.me.omdbapi.view.adapter.mainActivity.MainPagerAdapter
-import nejati.me.omdbapi.view.fragment.movie.SearchResultFragment
+import nejati.me.omdbapi.view.fragment.movie.MovieFragment
 import nejati.me.omdbapi.viewModels.mainActivity.MainViewModel
 
 
@@ -26,9 +24,6 @@ import nejati.me.omdbapi.viewModels.mainActivity.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     MainActivityNavigator, SearchView.OnQueryTextListener {
-
-/*    @set : Inject
-    internal var mainPagerAdapter: MainPagerAdapter? = null*/
 
     var searchView: SearchView? = null
 
@@ -61,10 +56,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel!!.navigator = this
+
         setSupportActionBar(toolbar)
-        setTitle(getString(R.string.search_movie_or_series))
+
+        title = getString(R.string.search_movie_or_series)
 
         viewModel!!.addFragmentsIntoViewPager()
 
@@ -77,20 +73,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
 
         searchView = menu.findItem(R.id.action_search)
-            .getActionView() as SearchView
+            .actionView as SearchView
 
         searchView!!.setSearchableInfo(
             searchManager.getSearchableInfo(componentName)
         )
 
-        searchView!!.setMaxWidth(Integer.MAX_VALUE)
+        searchView!!.maxWidth = Integer.MAX_VALUE
 
         searchView!!.setOnQueryTextListener(this)
 
         when {
             !TextUtils.isEmpty(viewModel!!.lastSearch.get()) -> {
                 searchView!!.setQuery(viewModel!!.lastSearch.get(), true)
-                searchView!!.setIconified(false)
+                searchView!!.isIconified = false
                 searchView!!.clearFocus()
             }
         }
@@ -101,21 +97,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun onQueryTextSubmit(query: String?): Boolean {
 
         when {
-            query!!.length > 3 -> {
-
+            query!!.length > 2 -> {
                 viewModel!!.lastSearch.set(query)
-                viewModel!!.lastPagerPosition.set(vpMulti.currentItem )
+                viewModel!!.lastPagerPosition.set(vpMulti.currentItem)
 
                 when {
                     vpMulti.currentItem == 0 ->
-                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(0) as SearchResultFragment)
+                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(0) as MovieFragment)
                             .searchOmdbApi("movie", query)
                     vpMulti.currentItem == 1 ->
-                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(1) as SearchResultFragment)
+                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(1) as MovieFragment)
                             .searchOmdbApi("series", query)
                 }
             }
-            else -> showSnackBar(dataBinding!!.root, "please enter minimum 3 characters")
+            else -> showSnackBar(dataBinding!!.root, getString(R.string.least_3_characters))
 
         }
         return false
@@ -124,5 +119,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun onQueryTextChange(query: String?): Boolean {
         needSearch = true
         return false
+    }
+
+    override fun onNetworkStatus(isConnectedToInternet: Boolean) {
+        when {
+            !isConnectedToInternet -> showSnackBar(
+                dataBinding!!.root,
+                getString(R.string.network_not_available)
+            )
+        }
     }
 }

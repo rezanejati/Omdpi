@@ -16,22 +16,22 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
  * Reza Nejati <rn.nejati@gmail.com>
  * Copyright © 2020
  */
-class SearchResultFragment() :
+class MovieFragment() :
     BaseFragment<FragmentResultSearchBinding, MovieViewModel>(),
     MovieNavigator {
 
     companion object {
         @JvmStatic
-        fun newInstance(): SearchResultFragment {
+        fun newInstance(): MovieFragment {
             val args = Bundle()
-            val fragment = SearchResultFragment()
+            val fragment = MovieFragment()
             fragment.setArguments(args)
             return fragment
         }
     }
 
     /**
-     * Set Variable fot DataBinding
+     * Set Variable for DataBinding
      * @return
      */
     override val bindingVariable: Int
@@ -51,7 +51,6 @@ class SearchResultFragment() :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel!!.navigator = this
-
     }
 
     /**
@@ -75,6 +74,5 @@ class SearchResultFragment() :
     fun searchOmdbApi(searchType: String, searchValue: String) {
         viewModel!!.searchOmdbApi(searchType, searchValue)
     }
-
 }
 

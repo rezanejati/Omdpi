@@ -13,8 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/_10dp">
+        android:layout_margin="@dimen/_10dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,13 +22,45 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/imdb_rating"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/type" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.imdbRating}"
                 style="@style/DetailValueMovieTextViewStyle"
-                android:textColor="@color/yellow"/>
+                android:text="@{viewModel.detailMovieResponse.type}" />
+        </LinearLayout>
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/language" />
+
+            <TextView
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.language}" />
+        </LinearLayout>
+
+
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/gener" />
+
+            <TextView
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.genre}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -39,12 +71,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/imdb_votes"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/awards" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.imdbVotes}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.awards}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -55,12 +87,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/language"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/directed_by" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.language}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.director}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -71,60 +103,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/gener"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/written_by" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.genre}"
-                style="@style/DetailValueMovieTextViewStyle" />
-        </LinearLayout>
-
-        <View style="@style/UnderLineViewDetailMovie" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:text="@string/awards"
-                style="@style/DetailKeyMovieTextViewStyle" />
-
-            <TextView
-                android:text="@{viewModel.detailMovieResponse.awards}"
-                style="@style/DetailValueMovieTextViewStyle" />
-        </LinearLayout>
-
-        <View style="@style/UnderLineViewDetailMovie" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:text="@string/directed_by"
-                style="@style/DetailKeyMovieTextViewStyle" />
-
-            <TextView
-                android:text="@{viewModel.detailMovieResponse.director}"
-                style="@style/DetailValueMovieTextViewStyle" />
-        </LinearLayout>
-
-        <View style="@style/UnderLineViewDetailMovie" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:text="@string/written_by"
-                style="@style/DetailKeyMovieTextViewStyle" />
-
-            <TextView
-                android:text="@{viewModel.detailMovieResponse.writer}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.writer}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -137,8 +121,8 @@
             <TextView style="@style/DetailKeyMovieTextViewStyle" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.actors}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.actors}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -149,12 +133,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/production"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/production" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.production}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.production}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -165,12 +149,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/country"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/country" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.country}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.country}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -181,12 +165,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/rated"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/rated" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.rated}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.rated}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -197,12 +181,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/dvd"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/dvd" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.DVD}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.DVD}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -213,12 +197,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/meta_score"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/meta_score" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.metascore}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.metascore}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -229,12 +213,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/box_office"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/box_office" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.boxOffice}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.boxOffice}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -245,12 +229,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="WEBSITE"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="WEBSITE" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.website}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.website}" />
         </LinearLayout>
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -261,18 +245,18 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/ratings"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/ratings" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/rvRatings"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 bind:listitem="@layout/ratings_list_item"
-                bind:viewModel="@{viewModel}"
                 bind:ratingItems="@{viewModel.ratingObservable}"
+                bind:viewModel="@{viewModel}"
 
                 />
         </LinearLayout>
@@ -285,12 +269,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/plot"
-                style="@style/DetailKeyMovieTextViewStyle" />
+                style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/plot" />
 
             <TextView
-                android:text="@{viewModel.detailMovieResponse.plot}"
-                style="@style/DetailValueMovieTextViewStyle" />
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.plot}" />
         </LinearLayout>
     </LinearLayout>
 </layout>

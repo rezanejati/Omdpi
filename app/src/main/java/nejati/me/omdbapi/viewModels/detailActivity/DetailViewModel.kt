@@ -2,6 +2,8 @@ package nejati.me.omdbapi.viewModels.detailActivity
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import io.reactivex.disposables.CompositeDisposable
 import nejati.me.omdbapi.BuildConfig
 import nejati.me.omdbapi.api.RxSingleSchedulers
@@ -22,20 +24,17 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
     private var disposable: CompositeDisposable? = null
     private var api: OmdpApi? = null
     private var rxSingleSchedulers: RxSingleSchedulers? = null
-    private var requestModel : OmdpiRequestModel ? = null
-
+    private var requestModel: OmdpiRequestModel? = null
 
 
     init {
         disposable = CompositeDisposable()
     }
 
-
-
     @Inject
     constructor(api: OmdpApi, rxSingleSchedulers: RxSingleSchedulers) : this() {
-        this.api=api
-        this.rxSingleSchedulers=rxSingleSchedulers
+        this.api = api
+        this.rxSingleSchedulers = rxSingleSchedulers
     }
 
     /**
@@ -43,14 +42,16 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
      */
     fun getData() {
         showProgressLayout.set(true)
-        disposable!!.add(api!!.getSearchByID(requestModel!!)
-            .compose(rxSingleSchedulers!!.applySchedulers())
-            .subscribe({onReady(it)}, { onError()}))
+        disposable!!.add(
+            api!!.getSearchByID(requestModel!!)
+                .compose(rxSingleSchedulers!!.applySchedulers())
+                .subscribe({ onReady(it) }, { onError() })
+        )
     }
 
 
     /**
-     * the web service error message
+     * The web service Error
      * @param message
      */
     fun onError() {
@@ -69,16 +70,22 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
     fun onReady(result: DetailMovieResponse) {
         showProgressLayout.set(false)
 
-        if (result.response!!.toBoolean()){
+        if (result.response!!.toBoolean()) {
             detailMovieResponse.set(result)
             ratingObservable.addAll(result.ratings!!)
 
-        }else{
+        } else {
             navigator!!.onWebServiceMessage(result.error!!)
 
         }
 
     }
+
+
+    /**
+     *
+     * @param imdbId Movie ID For Get Detail From Web Service
+     */
     fun getDetailMovie(imdbId: String) {
         requestModel = OmdpiRequestModel()
         requestModel!!.apikey = BuildConfig.API_KEY
@@ -86,8 +93,15 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
         getData()
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    protected fun clearDisposable() {
+        disposable!!.clear()
 
+    }
 
+    override fun isInternetAvailable(isConnectedToInternet: Boolean) {
+        navigator!!.onNetworkStatus(isConnectedToInternet)
 
+    }
 }
 

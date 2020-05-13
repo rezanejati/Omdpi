@@ -20,8 +20,13 @@
     <string name="type">Type</string>
     <string name="duration">Duration</string>
     <string name="movie_poster">Movie Poster</string>
-    <string name="network_not_avilable">Network Not Avilable!</string>
-    <string name="webservice_not_available">Web Service is not availble</string>
+    <string name="network_not_available">Network Not Available!</string>
+    <string name="webservice_not_available">Web Service is not available</string>
     <string name="search_movie_or_series">Search movie or series</string>
-    <string name="we_are_waitting">We are waitting for your search...</string>
+    <string name="we_are_waiting">We are waiting for your search… </string>
+    <string name="please_wait_we_are_searching_for_your_request">Please wait we are searching for your request</string>
+    <string name="voting_range">/10</string>
+    <string name="star_image">star image</string>
+    <string name="least_3_characters">Please enter at least 3 characters</string>
+    <string name="introduce">I am Reza Nejati and you are seeing my challenge…</string>
 </resources>

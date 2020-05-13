@@ -11,11 +11,11 @@ import nejati.me.omdbapi.databinding.ActivityDetailMovieActivityBinding
 import nejati.me.omdbapi.viewModels.detailActivity.DetailViewModel
 
 
-class DetailMovieActivity() :  BaseActivity<ActivityDetailMovieActivityBinding, DetailViewModel>(),
-    DetailMovieActivityNavigator{
+class DetailMovieActivity : BaseActivity<ActivityDetailMovieActivityBinding, DetailViewModel>(),
+    DetailMovieActivityNavigator {
 
     /**
-     * Set Variable fot DataBinding
+     * Set Variable For DataBinding
      * @return
      */
     override val bindingVariable: Int
@@ -36,6 +36,7 @@ class DetailMovieActivity() :  BaseActivity<ActivityDetailMovieActivityBinding, 
         return DetailViewModel::class.java
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,14 +44,15 @@ class DetailMovieActivity() :  BaseActivity<ActivityDetailMovieActivityBinding, 
 
         initializeActionBar()
 
-        val bundle=intent.extras
+        val bundle = intent.extras
         bundle?.let {
             viewModel!!.getDetailMovie(it.getString("ImdbApi")!!)
 
         }
 
     }
-    fun initializeActionBar(){
+
+    fun initializeActionBar() {
         setSupportActionBar(toolbar)
         getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
         getSupportActionBar()!!.setDisplayShowHomeEnabled(true);
@@ -65,11 +67,20 @@ class DetailMovieActivity() :  BaseActivity<ActivityDetailMovieActivityBinding, 
     }
 
     override fun onWebServiceError() {
-        showSnackBar(dataBinding!!.root,getString(R.string.webservice_not_available))
+        showSnackBar(dataBinding!!.root, getString(R.string.webservice_not_available))
     }
 
     override fun onWebServiceMessage(message: String) {
-        showSnackBar(dataBinding!!.root,message)
+        showSnackBar(dataBinding!!.root, message)
+    }
+
+    override fun onNetworkStatus(isConnectedToInternet: Boolean) {
+        when {
+            !isConnectedToInternet -> showSnackBar(
+                dataBinding!!.root,
+                getString(R.string.network_not_available)
+            )
+        }
     }
 
 }

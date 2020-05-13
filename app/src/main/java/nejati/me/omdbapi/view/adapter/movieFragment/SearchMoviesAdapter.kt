@@ -18,18 +18,19 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 class SearchMoviesAdapter(
     private val searchItems: MutableList<Search>,
     mainViewModel: MovieViewModel
-): BaseAdapter<BaseViewHolder, Search>() {
+) : BaseAdapter<BaseViewHolder, Search>() {
 
     var mainViewModel: MovieViewModel
 
     init {
-       this.mainViewModel=mainViewModel
+        this.mainViewModel = mainViewModel
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BaseViewHolder {
         val adapterBinding = MovieListItemBinding.inflate(
             LayoutInflater.from(viewGroup.context),
-            viewGroup, false)
+            viewGroup, false
+        )
 
         return MovieListViewHolder(adapterBinding)
     }
@@ -61,6 +62,5 @@ class SearchMoviesAdapter(
             mainViewModel.onMoviesItemClick(adapterPosition)
         }
     }
-
 
 }

@@ -9,7 +9,7 @@ import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.ActivityBaseViewModel
 import nejati.me.omdbapi.model.FragmentModel
 import nejati.me.omdbapi.view.activities.mian.MainActivityNavigator
-import nejati.me.omdbapi.view.fragment.movie.SearchResultFragment
+import nejati.me.omdbapi.view.fragment.movie.MovieFragment
 import nejati.me.sample.di.api.OmdpApi
 import javax.inject.Inject
 
@@ -28,12 +28,12 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
 
 
     /**
-     * inject retro client
+     * Inject Retro Client
      * You Can Access All Api in Constructor
      */
     @Inject
     constructor(api: OmdpApi, rxSingleSchedulers: RxSingleSchedulers) : this() {
-        //Todo Call Main WebService
+        //Todo Call Main Activity Web Service
     }
 
     /**
@@ -41,7 +41,7 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
      *
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    protected fun onLifeCycleStop() {
+    fun saveSearchText() {
         Prefs.putString("searchPrompt", lastSearch.get())
         Prefs.putInt("pagerPosition", lastPagerPosition.get()!!)
     }
@@ -50,19 +50,25 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
      * Add Fragments Into MainActivity ViewPager
      *
      */
-    fun addFragmentsIntoViewPager(){
-        fragments.add(
-            FragmentModel(
-                "Movie",
-                SearchResultFragment.newInstance()
-            )
-        )
-        fragments.add(
-            FragmentModel(
-                "Series",
-                SearchResultFragment.newInstance()
-            )
-        )
+    fun addFragmentsIntoViewPager() {
+
+        when {
+            fragments.size > 0 -> return
+        }
+        val movieModel = FragmentModel()
+        movieModel.title = "Movie"
+        movieModel.fragment = MovieFragment.newInstance()
+        fragments.add(movieModel)
+
+        val seriesModel = FragmentModel()
+        seriesModel.title = "Series"
+        seriesModel.fragment = MovieFragment.newInstance()
+        fragments.add(seriesModel)
+
+    }
+
+    override fun isInternetAvailable(isConnectedToInternet: Boolean) {
+        navigator!!.onNetworkStatus(isConnectedToInternet)
     }
 
 }

@@ -17,5 +17,4 @@ class RatingsItemViewModel(
         ratingItems.set(ratings)
     }
 
-
 }

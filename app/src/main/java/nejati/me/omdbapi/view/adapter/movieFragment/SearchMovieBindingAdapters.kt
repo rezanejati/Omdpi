@@ -29,24 +29,20 @@ object SearchMovieBindingAdapters {
         items: MutableList<Search>,
         mainViewModel: MovieViewModel, pageNumber: Int
     ) {
-
         when {
             recyclerView.adapter == null -> {
                 val adapter = SearchMoviesAdapter(items, mainViewModel)
                 recyclerView.adapter = adapter
+                recyclerView.addOnScrollListener(object : MyScrollListener(recyclerView.context) {
+                    override fun onEnd() {
+                        mainViewModel.callOmdbApiNextPage()
+                    }
+                })
             }
             pageNumber == 1 -> {
                 recyclerView.adapter!!.notifyDataSetChanged()
             }
             else -> recyclerView.adapter!!.notifyItemInserted(recyclerView.adapter!!.itemCount)
         }
-
-        recyclerView.addOnScrollListener(object : MyScrollListener(recyclerView.context) {
-            override fun onEnd() {
-                 mainViewModel.callOmdbApiNextPage()
-            }
-        })
     }
-
-
 }

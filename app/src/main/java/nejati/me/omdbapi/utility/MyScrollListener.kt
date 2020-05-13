@@ -33,7 +33,8 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
         }
 
         if ((recyclerView.layoutManager as LinearLayoutManager?)!!.findLastVisibleItemPosition() ==
-            (recyclerView.layoutManager as LinearLayoutManager?)!!.itemCount - 1) {
+            (recyclerView.layoutManager as LinearLayoutManager?)!!.itemCount - 1
+        ) {
             onEnd()
         }
 

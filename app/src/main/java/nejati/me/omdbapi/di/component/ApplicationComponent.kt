@@ -18,11 +18,13 @@ import nejati.me.omdbapi.module.RxModule
  * Copyright © 2020
  */
 @CustomScope
-@Component(modules = [ApplicationModule::class,
-    AndroidSupportInjectionModule::class,
-    ActivityBindingModule::class, FragmentBindingModule::class,
-    ApiModule::class,
-    RxModule::class])
+@Component(
+    modules = [ApplicationModule::class,
+        AndroidSupportInjectionModule::class,
+        ActivityBindingModule::class, FragmentBindingModule::class,
+        ApiModule::class,
+        RxModule::class]
+)
 interface ApplicationComponent : AndroidInjector<BaseApplication> {
 
     override fun inject(application: BaseApplication)

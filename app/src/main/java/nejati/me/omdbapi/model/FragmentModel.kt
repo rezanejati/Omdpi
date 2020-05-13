@@ -4,7 +4,11 @@ import androidx.fragment.app.Fragment
 
 /**
  * Authors:
- * Reza Nejati <reza.n.j.t.i></reza.n.j.t.i>@gmail.com>
- * Copyright © 2017
+ * Reza Nejati <rn.nejati@gmail.com>
+ * Copyright © 2020
  */
-class FragmentModel(var title: String, var fragment: Fragment)
+class FragmentModel {
+
+    var title: String? = null
+    var fragment: Fragment? = null
+}

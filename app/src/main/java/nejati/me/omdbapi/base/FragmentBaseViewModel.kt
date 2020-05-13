@@ -10,11 +10,11 @@ import io.reactivex.disposables.CompositeDisposable
  * Reza Nejati <rn.nejati@gmail.com>
  * Copyright © 2020
  */
-abstract class FragmentBaseViewModel<N> : ViewModel() , LifecycleObserver {
+abstract class FragmentBaseViewModel<N> : ViewModel(), LifecycleObserver {
 
     var showProgressLayout = ObservableField(false)
     var showErrorLayout = ObservableField(false)
-    var errorMessage =  ObservableField<String>()
+    var errorMessage = ObservableField<String>()
 
     var navigator: N? = null
 

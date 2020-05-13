@@ -1,7 +1,6 @@
 package nejati.me.omdbapi.di.scope
 
 import javax.inject.Scope
-import javax.inject.Singleton
 
 /**
  * Authors:

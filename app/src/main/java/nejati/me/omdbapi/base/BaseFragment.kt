@@ -22,7 +22,7 @@ import javax.inject.Inject
 abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> : Fragment() {
 
     @set:Inject
-    var comicsViewModelFactory: OmdbApiViewModelFactory? = null
+    var omdbapiViewModelFactory: OmdbApiViewModelFactory? = null
 
     var baseActivity: BaseActivity<*, *>? = null
 
@@ -30,7 +30,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
 
     var viewDataBinding: T? = null
 
-    protected var viewModel: V?=null
+    protected var viewModel: V? = null
 
     abstract val bindingVariable: Int
 
@@ -40,6 +40,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
     protected abstract fun getViewModel(): Class<V>
 
     override fun onAttach(context: Context) {
+
         AndroidSupportInjection.inject(this)
 
         super.onAttach(context)
@@ -49,9 +50,10 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
         }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this,comicsViewModelFactory).get(getViewModel())
+        viewModel = ViewModelProviders.of(this, omdbapiViewModelFactory).get(getViewModel())
 
     }
 
@@ -62,6 +64,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
     ): View? {
         viewDataBinding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         mRootView = viewDataBinding!!.root
+
         return mRootView
     }
 
@@ -75,11 +78,13 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
         viewDataBinding!!.setVariable(bindingVariable, viewModel)
         viewDataBinding!!.lifecycleOwner = this
         viewDataBinding!!.executePendingBindings()
+        getLifecycle().addObserver(viewModel!!)
+
     }
 
 
-    fun showSnackBar( root : View,message : String){
-        Snackbar.make(root,message, Snackbar.LENGTH_LONG)
+    fun showSnackBar(root: View, message: String) {
+        Snackbar.make(root, message, Snackbar.LENGTH_LONG)
             .show()
     }
 

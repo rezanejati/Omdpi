@@ -38,8 +38,6 @@ class ViewModelTest {
 
     @Mock
     internal var result: OmdbpiSearchrResponse?=null
-    @Mock
-    internal var searchMovie: Search?=null
 
     @Mock
     internal var lifecycleOwner: LifecycleOwner? = null
@@ -61,7 +59,7 @@ class ViewModelTest {
 
         viewModel!!.showErrorLayout.set(false)
         viewModel!!.showProgressLayout.set(false)
-        viewModel!!.showWattingSearchLayout.set(true)
+        viewModel!!.showWaitingSearchLayout.set(true)
         viewModel!!.showErrorLayout.set(false)
         viewModel!!.showPaginationProgress.set(false)
         viewModel!!.showResultRecyclerView.set(false)
@@ -74,7 +72,6 @@ class ViewModelTest {
         assertTrue(viewModel!!.moviesResult.isEmpty())
     }
 
-
     @Test
     fun onError() {
         viewModel!!.onErrorRetroClient()
@@ -84,7 +81,7 @@ class ViewModelTest {
     fun onStartWebservice(){
         viewModel!!.onStartWebservice()
         Assert.assertEquals(true, viewModel!!.showProgressLayout.get());
-        Assert.assertEquals(false, viewModel!!.showWattingSearchLayout.get());
+        Assert.assertEquals(false, viewModel!!.showWaitingSearchLayout.get());
         Assert.assertEquals(false, viewModel!!.showErrorLayout.get());
         Assert.assertEquals(false, viewModel!!.showPaginationProgress.get());
 
@@ -93,15 +90,15 @@ class ViewModelTest {
     fun beforFinishWebService() {
         viewModel!!.onStartWebservice()
     }
+
     @Test
     fun onFinishWebService(){
         viewModel!!.onFinishWebService()
         Assert.assertEquals(false, viewModel!!.showProgressLayout.get());
         Assert.assertEquals(true, viewModel!!.showResultRecyclerView.get());
         Assert.assertEquals(false, viewModel!!.showPaginationProgress.get());
-        Assert.assertEquals(false, viewModel!!.showWattingSearchLayout.get());
+        Assert.assertEquals(false, viewModel!!.showWaitingSearchLayout.get());
         Assert.assertEquals(false, viewModel!!.showErrorLayout.get());
-
     }
 
 }

@@ -16,7 +16,7 @@ class MainPagerAdapter(
     private val mFragmentList: MutableList<FragmentModel>
 ) : FragmentStatePagerAdapter(fm, behavior) {
     override fun getItem(position: Int): Fragment {
-        return mFragmentList[position].fragment
+        return mFragmentList[position].fragment!!
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

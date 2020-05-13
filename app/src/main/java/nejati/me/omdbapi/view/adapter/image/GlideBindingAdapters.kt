@@ -25,7 +25,7 @@ object GlideBindingAdapters {
     @JvmStatic
     @BindingAdapter("moviesImage")
     fun loadImage(view: ImageView, imageUrl: String) {
-        if(TextUtils.isEmpty(imageUrl)) return
+        if (TextUtils.isEmpty(imageUrl)) return
         val options: RequestOptions = RequestOptions()
             .centerInside()
             .error(R.drawable.poster_not_found)
@@ -41,9 +41,11 @@ object GlideBindingAdapters {
     @JvmStatic
     @BindingAdapter("blurelImage")
     fun loadDetailImage(view: ImageView, imageUrl: String) {
-        Glide.with(view.context).load(imageUrl).apply(RequestOptions.bitmapTransform(
-            BlurTransformation(15, 3)
-        )).into(view)
+        Glide.with(view.context).load(imageUrl).apply(
+            bitmapTransform(
+                BlurTransformation(15, 3)
+            )
+        ).into(view)
 
     }
 
@@ -52,7 +54,7 @@ object GlideBindingAdapters {
     fun loadBackgroundImage(view: ImageView, drwable: Drawable) {
         Glide.with(view.context)
             .load(drwable)
-            .apply(bitmapTransform(BlurTransformation(15, 3)))
+            .apply(bitmapTransform(BlurTransformation(15, 1)))
             .into(view)
 
     }
