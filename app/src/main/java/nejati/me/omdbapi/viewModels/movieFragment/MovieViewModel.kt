@@ -98,21 +98,20 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
     fun onReady(result: OmdbpiSearchrResponse) {
 
         onFinishWebService()
-        if (result.response!!.toBoolean()) {
-
-            moviesResult.addAll(result.search!!)
-            haveNextPage.set(!(moviesResult.size + 1 == result.totalResults!!.toInt()))
-
-
-        } else {
-            if (requestModel!!.page!! == 1) {
-                showErrorLayout.set(true)
-                showResultRecyclerView.set(false)
-                errorMessage.set(result.error)
+        when{
+            result.response!!.toBoolean() ->{
+                moviesResult.addAll(result.search!!)
+                haveNextPage.set(!(moviesResult.size + 1 == result.totalResults!!.toInt()))
             }
-
-
+            else ->{
+                if (requestModel!!.page!! == 1) {
+                    showErrorLayout.set(true)
+                    showResultRecyclerView.set(false)
+                    errorMessage.set(result.error)
+                }
+            }
         }
+
 
     }
 
@@ -131,9 +130,9 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
     fun callOmdbApiNextPage() {
         when {
             showPaginationProgress.get()!! -> return
+            showProgressLayout.get()!! -> return
             !haveNextPage.get()!! -> return
         }
-
         showPaginationProgress.set(true)
         requestModel!!.page = requestModel!!.page!! + 1
         resultPage.set(requestModel!!.page)
