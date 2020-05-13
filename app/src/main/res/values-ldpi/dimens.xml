@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--values-ldpi             3.4” 240x432 ldpi
+       values-ldpi             3.3” 240x400 ldpi
+       values-ldpi             2.7” 240x320 ldpi-->
+
+
+    <dimen name="_8dp">6dp</dimen>
+    <dimen name="_200dp">150dp</dimen>
+    <dimen name="_40dp">30dp</dimen>
+    <dimen name="_50dp">40dp</dimen>
+    <dimen name="margin_10dp">8dp</dimen>
+    <dimen name="textSize_16sp">12sp</dimen>
+    <dimen name="textSize_12sp">10sp</dimen>
+    <dimen name="_4dp">3dp</dimen>
+    <dimen name="_250dp">150dp</dimen>
+    <dimen name="_10dp">8dp</dimen>
+    <dimen name="textSize_10sp">8sp</dimen>
+    <dimen name="textSize_14sp">12sp</dimen>
+    <dimen name="_2dp">2dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_16dp">10dp</dimen>
+    <dimen name="_12dp">8dp</dimen>
+    <dimen name="textSize_20sp">12sp</dimen>
+    <dimen name="appbar_height_400dp">200dp</dimen>
+    <dimen name="margin_20dp">10dp</dimen>
+    <dimen name="_100dp">60dp</dimen>
+</resources>

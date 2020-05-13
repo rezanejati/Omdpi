@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--10.1” tablet 1280x800 mdpi-->
+
+    <dimen name="_8dp">18dp</dimen>
+    <dimen name="_200dp">380dp</dimen>
+    <dimen name="_40dp">70dp</dimen>
+    <dimen name="_50dp">80dp</dimen>
+    <dimen name="margin_10dp">25dp</dimen>
+    <dimen name="textSize_16sp">18sp</dimen>
+    <dimen name="textSize_12sp">18sp</dimen>
+    <dimen name="_4dp">8dp</dimen>
+    <dimen name="_250dp">370dp</dimen>
+    <dimen name="_10dp">18dp</dimen>
+    <dimen name="textSize_10sp">20sp</dimen>
+    <dimen name="textSize_14sp">22sp</dimen>
+    <dimen name="_2dp">8dp</dimen>
+    <dimen name="_1dp">2dp</dimen>
+    <dimen name="_16dp">25dp</dimen>
+    <dimen name="_12dp">25dp</dimen>
+    <dimen name="textSize_20sp">35sp</dimen>
+    <dimen name="appbar_height_400dp">600dp</dimen>
+    <dimen name="margin_20dp">35dp</dimen>
+    <dimen name="_100dp">200dp</dimen>
+</resources>
