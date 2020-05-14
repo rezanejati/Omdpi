@@ -21,7 +21,7 @@
     <string name="duration">Duration</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="network_not_available">Network Not Available!</string>
-    <string name="webservice_not_available">Web Service is not available</string>
+    <string name="webservice_not_available">Web Service Error!</string>
     <string name="search_movie_or_series">Search movie or series</string>
     <string name="we_are_waiting">We are waiting for your search… </string>
     <string name="please_wait_we_are_searching_for_your_request">Please wait we are searching for your request</string>

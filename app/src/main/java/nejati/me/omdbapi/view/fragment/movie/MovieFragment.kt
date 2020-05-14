@@ -65,6 +65,10 @@ class MovieFragment() :
         )
     }
 
+    override fun onWebServiceError() {
+        viewModel!!.errorMessage.set(getString(R.string.webservice_not_available))
+    }
+
 
     /**
      * Create OmdbApi Search Request

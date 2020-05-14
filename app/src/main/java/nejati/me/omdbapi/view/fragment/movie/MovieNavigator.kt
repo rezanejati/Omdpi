@@ -9,5 +9,6 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
  */
 interface MovieNavigator {
     fun onStartDetailMovieActivity(search: Search?)
+    fun onWebServiceError()
 
 }

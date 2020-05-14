@@ -86,7 +86,8 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
      */
     fun onErrorRetroClient() {
         showErrorLayout.set(true)
-        errorMessage.set("")
+        showProgressLayout.set(false)
+        navigator!!.onWebServiceError()
 
     }
 
@@ -148,7 +149,6 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
         when {
             moviesResult.size > 0 -> moviesResult.clear()
         }
-        moviesResult.clear()
         requestModel = OmdpiRequestModel()
         requestModel!!.type = searchType
         requestModel!!.searchName = searchValue
