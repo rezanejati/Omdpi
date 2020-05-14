@@ -2,7 +2,7 @@ package nejati.me.omdbapi.di.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import nejati.me.omdbapi.view.fragment.movie.MovieFragment
+import nejati.me.omdbapi.view.fragment.movie.SearchFragment
 
 
 /**
@@ -14,6 +14,6 @@ import nejati.me.omdbapi.view.fragment.movie.MovieFragment
 abstract class FragmentBindingModule {
 
     @ContributesAndroidInjector
-    internal abstract fun bindMovieFragment(): MovieFragment
+    internal abstract fun bindMovieFragment(): SearchFragment
 
 }

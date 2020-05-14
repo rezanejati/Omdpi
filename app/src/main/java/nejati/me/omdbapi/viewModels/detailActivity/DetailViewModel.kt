@@ -93,9 +93,10 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
         getData()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     protected fun clearDisposable() {
         disposable!!.clear()
+
 
     }
 

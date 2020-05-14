@@ -11,8 +11,7 @@ import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
 import nejati.me.omdbapi.databinding.ActivityMainBinding
-import nejati.me.omdbapi.view.adapter.mainActivity.MainPagerAdapter
-import nejati.me.omdbapi.view.fragment.movie.MovieFragment
+import nejati.me.omdbapi.view.fragment.movie.SearchFragment
 import nejati.me.omdbapi.viewModels.mainActivity.MainViewModel
 
 
@@ -97,17 +96,23 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun onQueryTextSubmit(query: String?): Boolean {
 
         when {
+
             query!!.length > 2 -> {
+
                 viewModel!!.lastSearch.set(query)
-                viewModel!!.lastPagerPosition.set(vpMulti.currentItem)
 
                 when {
-                    vpMulti.currentItem == 0 ->
-                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(0) as MovieFragment)
-                            .searchOmdbApi("movie", query)
-                    vpMulti.currentItem == 1 ->
-                        ((vpMulti!!.adapter as MainPagerAdapter).getItem(1) as MovieFragment)
-                            .searchOmdbApi("series", query)
+                    viewModel!!.viewPagerPosition.get() == 0 ->
+                        (viewModel!!.fragments[0].fragment as SearchFragment).searchOmdbApi(
+                            "movie",
+                            query
+                        )
+
+                    viewModel!!.viewPagerPosition.get() == 1 ->
+                        (viewModel!!.fragments[1].fragment as SearchFragment).searchOmdbApi(
+                            "series",
+                            query
+                        )
                 }
             }
             else -> showSnackBar(dataBinding!!.root, getString(R.string.least_3_characters))
@@ -129,4 +134,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
             )
         }
     }
+
 }

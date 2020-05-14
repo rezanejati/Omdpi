@@ -9,7 +9,7 @@ import nejati.me.omdbapi.BuildConfig
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.FragmentBaseViewModel
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
-import nejati.me.omdbapi.view.fragment.movie.MovieNavigator
+import nejati.me.omdbapi.view.fragment.movie.SearchFragmentNavigator
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
@@ -21,7 +21,7 @@ import javax.inject.Inject
  * Reza Nejati <rn.nejati@gmail.com>
  * Copyright © 2020
  */
-class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
+class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
 
     private var disposable: CompositeDisposable? = null
 
@@ -160,7 +160,7 @@ class MovieViewModel() : FragmentBaseViewModel<MovieNavigator>() {
 
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     protected fun clearDisposable() {
         disposable!!.clear()
     }

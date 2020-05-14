@@ -8,6 +8,6 @@ package nejati.me.omdbapi.base
 object StaticValue {
 
     //Waiting time for server response(Sec)
-    const val TimeOut: Long = 60
+    const val TimeOut: Long = 30
 
 }

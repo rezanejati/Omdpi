@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="?attr/actionBarSize"
             android:contentDescription="@string/movie_poster"
             android:scaleType="fitXY"
             app:drwableImage="@{@drawable/main_background_image}" />
@@ -57,18 +58,19 @@
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/colorPrimary"
-                bind:pager="@{vpMulti}" />
+                bind:pager="@{vpSearch}" />
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpMulti"
+            android:id="@+id/vpSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cv"
             android:gravity="center"
-            bind:currentItem="@{viewModel.lastPagerPosition}"
+            bind:currentItem="@{viewModel.viewPagerPosition}"
             bind:fragmentManager="@{viewModel.fragmentManager}"
-            bind:fragments="@{viewModel.fragments}" />
+            bind:fragments="@{viewModel.fragments}"
+            bind:onPageChange="@{viewModel.onPageSelected}" />
 
     </RelativeLayout>
 

@@ -9,7 +9,7 @@ import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.base.ActivityBaseViewModel
 import nejati.me.omdbapi.model.FragmentModel
 import nejati.me.omdbapi.view.activities.mian.MainActivityNavigator
-import nejati.me.omdbapi.view.fragment.movie.MovieFragment
+import nejati.me.omdbapi.view.fragment.movie.SearchFragment
 import nejati.me.sample.di.api.OmdpApi
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
 
     var lastSearch = ObservableField<String>(Prefs.getString("searchPrompt", ""))
 
-    var lastPagerPosition = ObservableField<Int>(Prefs.getInt("pagerPosition", 0))
+    var viewPagerPosition = ObservableField<Int>(Prefs.getInt("lastPagerPosition", 0))
 
 
     /**
@@ -37,13 +37,13 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
     }
 
     /**
-     * Save User Search Text and View Pager Position For Next Time
+     * Save User Search movie and View Pager Position For Next Time
      *
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun saveSearchText() {
+    fun saveSearchState() {
         Prefs.putString("searchPrompt", lastSearch.get())
-        Prefs.putInt("pagerPosition", lastPagerPosition.get()!!)
+        Prefs.putInt("lastPagerPosition", viewPagerPosition.get()!!)
     }
 
     /**
@@ -57,20 +57,31 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
         }
         val movieModel = FragmentModel()
         movieModel.title = "Movie"
-        movieModel.fragment = MovieFragment.newInstance()
+        movieModel.fragment = SearchFragment.newInstance()
         fragments.add(movieModel)
 
         val seriesModel = FragmentModel()
         seriesModel.title = "Series"
-        seriesModel.fragment = MovieFragment.newInstance()
+        seriesModel.fragment = SearchFragment.newInstance()
         fragments.add(seriesModel)
 
     }
 
+    /**
+     *
+     * @param isConnectedToInternet
+     */
     override fun isInternetAvailable(isConnectedToInternet: Boolean) {
         navigator!!.onNetworkStatus(isConnectedToInternet)
     }
 
+    /**
+     *
+     * @param position View Pager
+     */
+    fun onPageSelected(position: Int) {
+        viewPagerPosition.set(position)
+    }
 }
 
 

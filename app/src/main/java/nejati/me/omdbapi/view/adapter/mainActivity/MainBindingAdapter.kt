@@ -23,26 +23,39 @@ object MainBindingAdapter {
      * @param fragmentManager Get Fragment Manager From Base Activity
      * @param fragments View Pager Fragments Seris Or Movie ...
      * @param currentItem Set Current View Pager
+     * @param onPageChange On Page Change Listener
      */
     @JvmStatic
-    @BindingAdapter("bind:fragmentManager", "bind:fragments", "bind:currentItem")
+    @BindingAdapter(
+        "bind:fragmentManager",
+        "bind:fragments",
+        "bind:currentItem",
+        "bind:onPageChange"
+    )
     fun bindMainViewPagerAdapter(
-        viewPager: ViewPager, fragmentManager: FragmentManager,
-        fragments: MutableList<FragmentModel>, currentItem: Int
+        viewPager: ViewPager,
+        fragmentManager: FragmentManager,
+        fragments: MutableList<FragmentModel>,
+        currentItem: Int,
+        listener: OnMainActivityViewPagerEvent?
     ) {
-        if (viewPager.adapter == null) {
-            val mainPagerAdapter =
-                MainPagerAdapter(
-                    fragmentManager,
-                    FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments
-                )
-
-            viewPager.adapter = mainPagerAdapter
-        } else {
-            viewPager.adapter!!.notifyDataSetChanged()
+        when {
+            viewPager.adapter == null -> {
+                val mainPagerAdapter =
+                    MainPagerAdapter(
+                        fragmentManager,
+                        FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, fragments
+                    )
+                viewPager.adapter = mainPagerAdapter
+                viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+                    override fun onPageSelected(position: Int) {
+                        listener!!.onPageChanged(position)
+                    }
+                })
+            }
+            else -> viewPager.adapter!!.notifyDataSetChanged()
         }
         viewPager.currentItem = currentItem
-
     }
 
 
@@ -55,6 +68,14 @@ object MainBindingAdapter {
     @BindingAdapter("bind:pager")
     fun bindViewPagerTabs(view: TabLayout, pagerView: ViewPager?) {
         view.setupWithViewPager(pagerView, true)
+    }
+
+    /**
+     * Listener ViewPager In MainActivity
+     *
+     */
+    interface OnMainActivityViewPagerEvent {
+        fun onPageChanged(position: Int)
     }
 
 
