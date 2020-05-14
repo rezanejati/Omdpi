@@ -23,12 +23,29 @@
 
             <TextView
                 style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/name" />
+
+            <TextView
+                style="@style/DetailValueMovieTextViewStyle"
+                android:text="@{viewModel.detailMovieResponse.title}" />
+        </LinearLayout>
+
+        <View style="@style/UnderLineViewDetailMovie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/DetailKeyMovieTextViewStyle"
                 android:text="@string/type" />
 
             <TextView
                 style="@style/DetailValueMovieTextViewStyle"
                 android:text="@{viewModel.detailMovieResponse.type}" />
         </LinearLayout>
+
         <View style="@style/UnderLineViewDetailMovie" />
 
         <LinearLayout
@@ -44,7 +61,6 @@
                 style="@style/DetailValueMovieTextViewStyle"
                 android:text="@{viewModel.detailMovieResponse.language}" />
         </LinearLayout>
-
 
 
         <View style="@style/UnderLineViewDetailMovie" />
@@ -276,5 +292,6 @@
                 style="@style/DetailValueMovieTextViewStyle"
                 android:text="@{viewModel.detailMovieResponse.plot}" />
         </LinearLayout>
+
     </LinearLayout>
 </layout>
