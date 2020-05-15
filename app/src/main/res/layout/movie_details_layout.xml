@@ -134,7 +134,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView style="@style/DetailKeyMovieTextViewStyle" />
+            <TextView style="@style/DetailKeyMovieTextViewStyle"
+                android:text="@string/actors" />
 
             <TextView
                 style="@style/DetailValueMovieTextViewStyle"
