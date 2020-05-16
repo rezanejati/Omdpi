@@ -6,9 +6,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import nejati.me.omdbapi.api.RxSingleSchedulers
 import nejati.me.omdbapi.service.model.request.OmdpiRequestModel
+import nejati.me.omdbapi.view.fragment.movie.SearchFragmentNavigator
 import nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.OmdbpiSearchrResponse
-import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 import nejati.me.sample.di.api.OmdpApi
 import org.junit.Assert
 import org.junit.Assert.assertNotNull
@@ -47,6 +47,9 @@ class ViewModelTest {
     @Mock
     internal var requestModel: OmdpiRequestModel? = null
 
+    @Mock
+    internal var searchFragmentNavigator: SearchFragmentNavigator? = null
+
 
     @Before
     @Throws(Exception::class)
@@ -54,13 +57,14 @@ class ViewModelTest {
 
         MockitoAnnotations.initMocks(this)
         lifecycle = LifecycleRegistry(lifecycleOwner!!)
-        viewModel = MovieViewModel(apiClient!!, RxSingleSchedulers.TEST_SCHEDULER)
+        viewModel = MovieViewModel(apiClient!!, RxSingleSchedulers.DEFAULT)
         viewModel!!.moviesResult.addAll(result!!.search!!)
+
+        viewModel!!.navigator=searchFragmentNavigator
 
         viewModel!!.showErrorLayout.set(false)
         viewModel!!.showProgressLayout.set(false)
         viewModel!!.showWaitingSearchLayout.set(true)
-        viewModel!!.showErrorLayout.set(false)
         viewModel!!.showPaginationProgress.set(false)
         viewModel!!.showResultRecyclerView.set(false)
     }
