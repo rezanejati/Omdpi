@@ -17,7 +17,7 @@
     <string name="imdb_votes">IMDB VOTES</string>
     <string name="imdb_rating">IMDB RATING</string>
     <string name="released">Released</string>
-    <string name="type">Type</string>
+    <string name="type">TYPE</string>
     <string name="duration">Duration</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="network_not_available">Network Not Available!</string>
