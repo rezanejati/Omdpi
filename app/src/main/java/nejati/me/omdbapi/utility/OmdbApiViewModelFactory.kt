@@ -1,6 +1,5 @@
 package nejati.me.omdbapi.utility
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
@@ -30,6 +29,5 @@ constructor(private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcard
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
 }

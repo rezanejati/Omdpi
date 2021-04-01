@@ -46,15 +46,12 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
         super.onAttach(context)
         if (context is BaseActivity<*, *>) {
             this.baseActivity = context
-
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, omdbapiViewModelFactory).get(getViewModel())
-
     }
 
     override fun onCreateView(
@@ -63,7 +60,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
         savedInstanceState: Bundle?
     ): View? {
         viewDataBinding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
-        mRootView = viewDataBinding!!.root
+        mRootView = viewDataBinding?.root
 
         return mRootView
     }
@@ -75,17 +72,14 @@ abstract class BaseFragment<T : ViewDataBinding, V : FragmentBaseViewModel<*>> :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding!!.setVariable(bindingVariable, viewModel)
-        viewDataBinding!!.lifecycleOwner = this
-        viewDataBinding!!.executePendingBindings()
-        getLifecycle().addObserver(viewModel!!)
-
+        viewDataBinding?.setVariable(bindingVariable, viewModel)
+        viewDataBinding?.lifecycleOwner = this
+        viewDataBinding?.executePendingBindings()
+        viewModel?.let { lifecycle.addObserver(it) }
     }
-
 
     fun showSnackBar(root: View, message: String) {
         Snackbar.make(root, message, Snackbar.LENGTH_LONG)
             .show()
     }
-
 }

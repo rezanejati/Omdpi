@@ -42,25 +42,22 @@ abstract class BaseActivity<D : ViewDataBinding, V : ActivityBaseViewModel<*>> :
 
         viewModel = ViewModelProviders.of(this, omdpViewModelFactory).get(getViewModel())
 
-        viewModel!!.fragmentManager.set(supportFragmentManager)
+        viewModel?.fragmentManager?.set(supportFragmentManager)
 
         dataBinding = DataBindingUtil.setContentView(this, layoutRes)
 
-        dataBinding!!.setVariable(bindingVariable, viewModel)
+        dataBinding?.setVariable(bindingVariable, viewModel)
 
-        dataBinding!!.executePendingBindings()
-
-        getLifecycle().addObserver(viewModel!!)
-
-
+        dataBinding?.executePendingBindings()
+        viewModel?.let { lifecycle.addObserver(it) }
     }
 
     protected abstract fun getViewModel(): Class<V>
 
-    fun showSnackBar(root: View, message: String) {
-        Snackbar.make(root, message, Snackbar.LENGTH_LONG)
-            .show()
+    fun showSnackBar(root: View?, message: String) {
+        root?.let {
+            Snackbar.make(it, message, Snackbar.LENGTH_LONG)
+                .show()
+        }
     }
-
-
 }

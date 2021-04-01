@@ -16,5 +16,4 @@ class RatingsItemViewModel(
     init {
         ratingItems.set(ratings)
     }
-
 }

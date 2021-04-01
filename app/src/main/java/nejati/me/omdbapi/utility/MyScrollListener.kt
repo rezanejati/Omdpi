@@ -32,8 +32,8 @@ abstract class MyScrollListener(context: Context) : RecyclerView.OnScrollListene
             toolbarOffset += dy
         }
 
-        if ((recyclerView.layoutManager as LinearLayoutManager?)!!.findLastVisibleItemPosition() ==
-            (recyclerView.layoutManager as LinearLayoutManager?)!!.itemCount - 1
+        if ((recyclerView.layoutManager as LinearLayoutManager?)?.findLastVisibleItemPosition() ==
+            (recyclerView.layoutManager as LinearLayoutManager?)?.itemCount?.minus(1)
         ) {
             onEnd()
         }

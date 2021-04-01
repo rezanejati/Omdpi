@@ -6,7 +6,6 @@ import nejati.me.omdbapi.utility.MyScrollListener
 import nejati.me.omdbapi.viewModels.movieFragment.MovieViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.search.Search
 
-
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
@@ -27,7 +26,8 @@ object SearchMovieBindingAdapters {
     fun movieAdapter(
         recyclerView: RecyclerView,
         items: MutableList<Search>,
-        mainViewModel: MovieViewModel, pageNumber: Int
+        mainViewModel: MovieViewModel,
+        pageNumber: Int
     ) {
         when {
             recyclerView.adapter == null -> {
@@ -40,9 +40,9 @@ object SearchMovieBindingAdapters {
                 })
             }
             pageNumber == 1 -> {
-                recyclerView.adapter!!.notifyDataSetChanged()
+                recyclerView.adapter?.notifyDataSetChanged()
             }
-            else -> recyclerView.adapter!!.notifyItemInserted(recyclerView.adapter!!.itemCount)
+            else -> recyclerView.adapter?.apply { notifyItemInserted(this.itemCount) }
         }
     }
 }

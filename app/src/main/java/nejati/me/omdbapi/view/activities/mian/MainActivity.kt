@@ -14,15 +14,16 @@ import nejati.me.omdbapi.databinding.ActivityMainBinding
 import nejati.me.omdbapi.view.fragment.movie.SearchFragment
 import nejati.me.omdbapi.viewModels.mainActivity.MainViewModel
 
-
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
  * Copyright © 2020
  */
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
-    MainActivityNavigator, SearchView.OnQueryTextListener {
+class MainActivity :
+    BaseActivity<ActivityMainBinding, MainViewModel>(),
+    MainActivityNavigator,
+    SearchView.OnQueryTextListener {
 
     var searchView: SearchView? = null
 
@@ -55,14 +56,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel!!.navigator = this
+        viewModel?.navigator = this
 
         setSupportActionBar(toolbar)
 
         title = getString(R.string.search_movie_or_series)
 
-        viewModel!!.addFragmentsIntoViewPager()
-
+        viewModel?.addFragmentsIntoViewPager()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,49 +74,47 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
         searchView = menu.findItem(R.id.action_search)
             .actionView as SearchView
 
-        searchView!!.setSearchableInfo(
+        searchView?.setSearchableInfo(
             searchManager.getSearchableInfo(componentName)
         )
 
-        searchView!!.maxWidth = Integer.MAX_VALUE
+        searchView?.maxWidth = Integer.MAX_VALUE
 
-        searchView!!.setOnQueryTextListener(this)
+        searchView?.setOnQueryTextListener(this)
 
         when {
-            !TextUtils.isEmpty(viewModel!!.lastSearch.get()) -> {
-                searchView!!.setQuery(viewModel!!.lastSearch.get(), true)
-                searchView!!.isIconified = false
-                searchView!!.clearFocus()
+            !TextUtils.isEmpty(viewModel?.lastSearch?.get()) -> {
+                searchView?.setQuery(viewModel?.lastSearch?.get(), true)
+                searchView?.isIconified = false
+                searchView?.clearFocus()
             }
         }
         return true
     }
 
-
     override fun onQueryTextSubmit(query: String?): Boolean {
 
         when {
 
-            query!!.length > 2 -> {
+            query?.length ?: 0 > 2 -> {
 
-                viewModel!!.lastSearch.set(query)
+                viewModel?.lastSearch?.set(query)
 
                 when {
-                    viewModel!!.viewPagerPosition.get() == 0 ->
-                        (viewModel!!.fragments[0].fragment as SearchFragment).searchOmdbApi(
+                    viewModel?.viewPagerPosition?.get() == 0 ->
+                        (viewModel?.fragments?.get(0)?.fragment as SearchFragment).searchOmdbApi(
                             "movie",
                             query
                         )
 
-                    viewModel!!.viewPagerPosition.get() == 1 ->
-                        (viewModel!!.fragments[1].fragment as SearchFragment).searchOmdbApi(
+                    viewModel?.viewPagerPosition?.get() == 1 ->
+                        (viewModel?.fragments?.get(1)?.fragment as SearchFragment).searchOmdbApi(
                             "series",
                             query
                         )
                 }
             }
-            else -> showSnackBar(dataBinding!!.root, getString(R.string.least_3_characters))
-
+            else -> showSnackBar(dataBinding?.root, getString(R.string.least_3_characters))
         }
         return false
     }
@@ -129,10 +127,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(),
     override fun onNetworkStatus(isConnectedToInternet: Boolean) {
         when {
             !isConnectedToInternet -> showSnackBar(
-                dataBinding!!.root,
+                dataBinding?.root,
                 getString(R.string.network_not_available)
             )
         }
     }
-
 }

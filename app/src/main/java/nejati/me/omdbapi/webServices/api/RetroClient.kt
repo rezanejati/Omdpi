@@ -24,10 +24,10 @@ interface RetroClient {
      */
     @GET(Const.BASEURl)
     fun getMoviesList(
-        @Query("s") s: String,
-        @Query("apikey") apikey: String,
-        @Query("type") type: String,
-        @Query("page") page: Int
+        @Query("s") s: String?,
+        @Query("apikey") apikey: String?,
+        @Query("type") type: String?,
+        @Query("page") page: Int?
     ): Single<OmdbpiSearchrResponse>
 
     /**
@@ -38,7 +38,7 @@ interface RetroClient {
      */
     @GET(Const.BASEURl)
     fun getSearchById(
-        @Query("apikey") apikey: String,
-        @Query("i") i: String
+        @Query("apikey") apikey: String?,
+        @Query("i") i: String?
     ): Single<DetailMovieResponse>
 }

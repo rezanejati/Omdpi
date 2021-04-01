@@ -9,7 +9,6 @@ import nejati.me.omdbapi.viewModels.detailActivity.DetailViewModel
 import nejati.me.omdbapi.viewModels.detailActivity.RatingsItemViewModel
 import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 
-
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
@@ -18,18 +17,19 @@ import nejati.me.omdbapi.webServices.omdpiModel.search.response.detail.Rating
 class RatingsAdapter(
     private val searchItems: MutableList<Rating>,
     detailViewModel: DetailViewModel
-): BaseAdapter<BaseViewHolder, Rating>() {
+) : BaseAdapter<BaseViewHolder, Rating>() {
 
     var detailViewModel: DetailViewModel
 
     init {
-       this.detailViewModel=detailViewModel
+        this.detailViewModel = detailViewModel
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): BaseViewHolder {
         val adapterBinding = RatingsListItemBinding.inflate(
             LayoutInflater.from(viewGroup.context),
-            viewGroup, false)
+            viewGroup, false
+        )
 
         return RatingListViewHolder(adapterBinding)
     }
@@ -46,7 +46,6 @@ class RatingsAdapter(
         BaseViewHolder(adapterBinding.root) {
         private var moviesItemViewModel: RatingsItemViewModel? = null
 
-
         override fun onBind(position: Int) {
             if (searchItems.size > 0) {
                 val moviesListItem = searchItems[position]
@@ -56,11 +55,7 @@ class RatingsAdapter(
                     )
                 adapterBinding.viewModel = moviesItemViewModel
                 setFadeAnimation(adapterBinding.root)
-
             }
         }
-
     }
-
-
 }

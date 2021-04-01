@@ -8,10 +8,11 @@ import nejati.me.omdbapi.BR
 import nejati.me.omdbapi.R
 import nejati.me.omdbapi.base.BaseActivity
 import nejati.me.omdbapi.databinding.ActivityDetailMovieActivityBinding
+import nejati.me.omdbapi.view.fragment.movie.SearchFragment
 import nejati.me.omdbapi.viewModels.detailActivity.DetailViewModel
 
-
-class DetailMovieActivity : BaseActivity<ActivityDetailMovieActivityBinding, DetailViewModel>(),
+class DetailMovieActivity :
+    BaseActivity<ActivityDetailMovieActivityBinding, DetailViewModel>(),
     DetailMovieActivityNavigator {
 
     /**
@@ -36,29 +37,25 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieActivityBinding, Det
         return DetailViewModel::class.java
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel!!.navigator = this
+        viewModel?.navigator = this
 
         initializeActionBar()
 
         val bundle = intent.extras
         bundle?.let {
-            viewModel!!.getDetailMovie(it.getString("ImdbApi")!!)
-
+            viewModel?.getDetailMovie(it.getString(SearchFragment.EXTRA_IMDB_ID)?:"")
         }
-
     }
 
-    fun initializeActionBar() {
+    private fun initializeActionBar() {
         setSupportActionBar(toolbar)
-        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar()!!.setDisplayShowHomeEnabled(true);
-        setTitle(intent.getStringExtra("title"))
-        collapsing_toolbar.setContentScrimColor(ContextCompat.getColor(this, R.color.colorPrimary));
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        title = intent.getStringExtra(SearchFragment.EXTRA_TITLE)
+        collapsing_toolbar.setContentScrimColor(ContextCompat.getColor(this, R.color.colorPrimary))
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -67,20 +64,19 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieActivityBinding, Det
     }
 
     override fun onWebServiceError() {
-        showSnackBar(dataBinding!!.root, getString(R.string.webservice_not_available))
+        showSnackBar(dataBinding?.root, getString(R.string.webservice_not_available))
     }
 
     override fun onWebServiceMessage(message: String) {
-        showSnackBar(dataBinding!!.root, message)
+        showSnackBar(dataBinding?.root, message)
     }
 
     override fun onNetworkStatus(isConnectedToInternet: Boolean) {
         when {
             !isConnectedToInternet -> showSnackBar(
-                dataBinding!!.root,
+                dataBinding?.root,
                 getString(R.string.network_not_available)
             )
         }
     }
-
 }

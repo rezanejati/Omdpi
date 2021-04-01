@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import nejati.me.omdbapi.model.FragmentModel
+import nejati.me.omdbapi.view.fragment.movie.SearchFragment
 
 /**
  * Authors:
@@ -15,8 +16,9 @@ class MainPagerAdapter(
     behavior: Int,
     private val mFragmentList: MutableList<FragmentModel>
 ) : FragmentStatePagerAdapter(fm, behavior) {
+
     override fun getItem(position: Int): Fragment {
-        return mFragmentList[position].fragment!!
+        return mFragmentList[position].fragment ?: SearchFragment.newInstance()
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -26,5 +28,4 @@ class MainPagerAdapter(
     override fun getCount(): Int {
         return mFragmentList.size
     }
-
 }

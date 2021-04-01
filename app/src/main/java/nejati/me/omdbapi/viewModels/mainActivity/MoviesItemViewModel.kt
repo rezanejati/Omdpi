@@ -22,5 +22,4 @@ class MoviesItemViewModel(
     fun onMovieClick(t: MoviesItemViewModel) {
         customClickListener.itemClicked(t)
     }
-
 }

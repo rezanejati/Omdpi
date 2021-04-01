@@ -18,16 +18,10 @@ abstract class FragmentBaseViewModel<N> : ViewModel(), LifecycleObserver {
 
     var navigator: N? = null
 
-
-    val compositeDisposable: CompositeDisposable
-
-    init {
-        this.compositeDisposable = CompositeDisposable()
-    }
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
         compositeDisposable.dispose()
         super.onCleared()
-
     }
 }

@@ -33,7 +33,7 @@ abstract class ActivityBaseViewModel<N> : ViewModel(), LifecycleObserver {
     @SuppressLint("CheckResult")
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     protected open fun startNetworkListener() {
-        disposable!!.add(ReactiveNetwork
+        disposable?.add(ReactiveNetwork
             .observeInternetConnectivity()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -46,7 +46,7 @@ abstract class ActivityBaseViewModel<N> : ViewModel(), LifecycleObserver {
     @SuppressLint("CheckResult")
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     protected open fun stopNetworkListener() {
-        disposable!!.clear()
+        disposable?.clear()
     }
 
     abstract fun isInternetAvailable(isConnectedToInternet: Boolean)

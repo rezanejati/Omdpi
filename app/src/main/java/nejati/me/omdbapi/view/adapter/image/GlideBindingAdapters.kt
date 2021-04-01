@@ -46,17 +46,14 @@ object GlideBindingAdapters {
                 BlurTransformation(15, 3)
             )
         ).into(view)
-
     }
 
     @JvmStatic
-    @BindingAdapter("drwableImage")
+    @BindingAdapter("drawableImage")
     fun loadBackgroundImage(view: ImageView, drwable: Drawable) {
         Glide.with(view.context)
             .load(drwable)
             .apply(bitmapTransform(BlurTransformation(15, 1)))
             .into(view)
-
     }
-
 }

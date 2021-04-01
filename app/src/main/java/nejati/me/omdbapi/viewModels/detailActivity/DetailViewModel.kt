@@ -42,11 +42,9 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
      */
     fun getData() {
         showProgressLayout.set(true)
-        disposable!!.add(
-            api!!.getSearchByID(requestModel!!)
-                .compose(rxSingleSchedulers!!.applySchedulers())
-                .subscribe({ onReady(it) }, { onError() })
-        )
+        api?.getSearchByID(requestModel)
+            ?.compose(rxSingleSchedulers?.applySchedulers())
+            ?.subscribe({ onReady(it) }, { onError() })?.let { disposable?.add(it) }
     }
 
 
@@ -56,7 +54,7 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
      */
     fun onError() {
         showProgressLayout.set(false)
-        navigator!!.onWebServiceError()
+        navigator?.onWebServiceError()
 
     }
 
@@ -70,12 +68,12 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
     fun onReady(result: DetailMovieResponse) {
         showProgressLayout.set(false)
 
-        if (result.response!!.toBoolean()) {
+        if (result.response?.toBoolean() == true) {
             detailMovieResponse.set(result)
-            ratingObservable.addAll(result.ratings!!)
+            result.ratings?.let { ratingObservable.addAll(it) }
 
         } else {
-            navigator!!.onWebServiceMessage(result.error!!)
+            result.error?.let { navigator?.onWebServiceMessage(it) }
 
         }
 
@@ -88,20 +86,20 @@ class DetailViewModel() : ActivityBaseViewModel<DetailMovieActivityNavigator>() 
      */
     fun getDetailMovie(imdbId: String) {
         requestModel = OmdpiRequestModel()
-        requestModel!!.apikey = BuildConfig.API_KEY
-        requestModel!!.imdbId = imdbId
+        requestModel?.apikey = BuildConfig.API_KEY
+        requestModel?.imdbId = imdbId
         getData()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     protected fun clearDisposable() {
-        disposable!!.clear()
+        disposable?.clear()
 
 
     }
 
     override fun isInternetAvailable(isConnectedToInternet: Boolean) {
-        navigator!!.onNetworkStatus(isConnectedToInternet)
+        navigator?.onNetworkStatus(isConnectedToInternet)
 
     }
 }

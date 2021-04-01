@@ -19,11 +19,13 @@ import nejati.me.omdbapi.module.RxModule
  */
 @CustomScope
 @Component(
-    modules = [ApplicationModule::class,
+    modules = [
+        ApplicationModule::class,
         AndroidSupportInjectionModule::class,
         ActivityBindingModule::class, FragmentBindingModule::class,
         ApiModule::class,
-        RxModule::class]
+        RxModule::class
+    ]
 )
 interface ApplicationComponent : AndroidInjector<BaseApplication> {
 

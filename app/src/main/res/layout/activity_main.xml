@@ -23,7 +23,7 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:contentDescription="@string/movie_poster"
             android:scaleType="fitXY"
-            app:drwableImage="@{@drawable/main_background_image}" />
+            app:drawableImage="@{@drawable/main_background_image}" />
 
         <View
             android:layout_width="match_parent"

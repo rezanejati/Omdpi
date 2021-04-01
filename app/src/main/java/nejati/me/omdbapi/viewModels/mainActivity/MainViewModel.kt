@@ -26,14 +26,13 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
 
     var viewPagerPosition = ObservableField<Int>(Prefs.getInt("lastPagerPosition", 0))
 
-
     /**
      * Inject Retro Client
      * You Can Access All Api in Constructor
      */
     @Inject
     constructor(api: OmdpApi, rxSingleSchedulers: RxSingleSchedulers) : this() {
-        //Todo Call Main Activity Web Service
+        // Todo Call Main Activity Web Service
     }
 
     /**
@@ -43,7 +42,7 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun saveSearchState() {
         Prefs.putString("searchPrompt", lastSearch.get())
-        Prefs.putInt("lastPagerPosition", viewPagerPosition.get()!!)
+        Prefs.putInt("lastPagerPosition", viewPagerPosition.get()?:0)
     }
 
     /**
@@ -64,7 +63,6 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
         seriesModel.title = "Series"
         seriesModel.fragment = SearchFragment.newInstance()
         fragments.add(seriesModel)
-
     }
 
     /**
@@ -72,7 +70,7 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
      * @param isConnectedToInternet
      */
     override fun isInternetAvailable(isConnectedToInternet: Boolean) {
-        navigator!!.onNetworkStatus(isConnectedToInternet)
+        navigator?.onNetworkStatus(isConnectedToInternet)
     }
 
     /**
@@ -83,5 +81,3 @@ class MainViewModel() : ActivityBaseViewModel<MainActivityNavigator>() {
         viewPagerPosition.set(position)
     }
 }
-
-

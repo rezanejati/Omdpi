@@ -36,5 +36,4 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieViewModel::class)
     internal abstract fun movieViewModel(movieViewModel: MovieViewModel): ViewModel
-
 }

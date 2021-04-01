@@ -6,7 +6,6 @@ import io.reactivex.schedulers.Schedulers
 
 interface RxSingleSchedulers {
 
-
     fun <T> applySchedulers(): SingleTransformer<T, T>
 
     companion object {
@@ -16,7 +15,6 @@ interface RxSingleSchedulers {
                     upstream
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-
                 }
             }
         }
@@ -27,7 +25,6 @@ interface RxSingleSchedulers {
                     upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                 }
-
             }
         }
     }

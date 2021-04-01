@@ -8,7 +8,6 @@ import com.google.android.material.tabs.TabLayout
 import nejati.me.omdbapi.model.FragmentModel
 import nejati.me.omdbapi.view.adapter.mainActivity.MainPagerAdapter
 
-
 /**
  * Authors:
  * Reza Nejati <rn.nejati@gmail.com>
@@ -49,15 +48,14 @@ object MainBindingAdapter {
                 viewPager.adapter = mainPagerAdapter
                 viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
                     override fun onPageSelected(position: Int) {
-                        listener!!.onPageChanged(position)
+                        listener?.onPageChanged(position)
                     }
                 })
             }
-            else -> viewPager.adapter!!.notifyDataSetChanged()
+            else -> viewPager.adapter?.notifyDataSetChanged()
         }
         viewPager.currentItem = currentItem
     }
-
 
     /**
      *
@@ -77,6 +75,4 @@ object MainBindingAdapter {
     interface OnMainActivityViewPagerEvent {
         fun onPageChanged(position: Int)
     }
-
-
 }

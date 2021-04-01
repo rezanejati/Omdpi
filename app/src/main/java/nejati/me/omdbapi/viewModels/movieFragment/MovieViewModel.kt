@@ -31,7 +31,7 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
 
     private var requestModel: OmdpiRequestModel? = null
 
-    var showPaginationProgress = ObservableField<Boolean>()
+    var showPaginationProgress = ObservableField<Boolean>(false)
 
     val moviesResult = ObservableArrayList<Search>()
 
@@ -59,13 +59,13 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
     /**
      * get data from web service
      */
+
     fun getData() {
-        disposable!!.add(
-            api!!.getMovies(requestModel!!)
-                .compose(rxSingleSchedulers!!.applySchedulers())
-                .subscribe({ onReady(it) }, { onErrorRetroClient() })
-        )
+        api?.getMovies(requestModel)
+            ?.compose(rxSingleSchedulers?.applySchedulers())
+            ?.subscribe({ onReady(it) }, { onErrorRetroClient() })?.let { disposable?.add(it) }
     }
+
 
     fun onStartWebservice() {
         showProgressLayout.set(true)
@@ -87,7 +87,7 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
     fun onErrorRetroClient() {
         showErrorLayout.set(true)
         showProgressLayout.set(false)
-        navigator!!.onWebServiceError()
+        navigator?.onWebServiceError()
 
     }
 
@@ -99,12 +99,12 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
 
         onFinishWebService()
         when {
-            result.response!!.toBoolean() -> {
-                moviesResult.addAll(result.search!!)
-                haveNextPage.set(!(moviesResult.size + 1 == result.totalResults!!.toInt()))
+            result.response?.toBoolean() ?: false -> {
+                result.search?.let { moviesResult.addAll(it) }
+                haveNextPage.set(!(moviesResult.size + 1 == result.totalResults?.toInt()))
             }
             else -> {
-                if (requestModel!!.page!! == 1) {
+                if (requestModel?.page == 1) {
                     showErrorLayout.set(true)
                     showResultRecyclerView.set(false)
                     errorMessage.set(result.error)
@@ -120,7 +120,7 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
      * @param position of Grid Recycler
      */
     fun onMoviesItemClick(position: Int) {
-        navigator!!.onStartDetailMovieActivity(moviesResult.get(position))
+        navigator?.onStartDetailMovieActivity(moviesResult.get(position))
 
     }
 
@@ -129,13 +129,13 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
      */
     fun callOmdbApiNextPage() {
         when {
-            showPaginationProgress.get()!! -> return
-            showProgressLayout.get()!! -> return
-            !haveNextPage.get()!! -> return
+            showPaginationProgress.get() == true -> return
+            showProgressLayout.get() == true -> return
+            haveNextPage.get() == false -> return
         }
         showPaginationProgress.set(true)
-        requestModel!!.page = requestModel!!.page!! + 1
-        resultPage.set(requestModel!!.page)
+        requestModel?.page = requestModel?.page?.plus(1)
+        resultPage.set(requestModel?.page)
         getData()
     }
 
@@ -150,11 +150,11 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
             moviesResult.size > 0 -> moviesResult.clear()
         }
         requestModel = OmdpiRequestModel()
-        requestModel!!.type = searchType
-        requestModel!!.searchName = searchValue
-        requestModel!!.apikey = BuildConfig.API_KEY
-        requestModel!!.page = 1
-        resultPage.set(requestModel!!.page)
+        requestModel?.type = searchType
+        requestModel?.searchName = searchValue
+        requestModel?.apikey = BuildConfig.API_KEY
+        requestModel?.page = 1
+        resultPage.set(requestModel?.page)
         onStartWebservice();
         getData()
 
@@ -162,7 +162,7 @@ class MovieViewModel() : FragmentBaseViewModel<SearchFragmentNavigator>() {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     protected fun clearDisposable() {
-        disposable!!.clear()
+        disposable?.clear()
     }
 
 }

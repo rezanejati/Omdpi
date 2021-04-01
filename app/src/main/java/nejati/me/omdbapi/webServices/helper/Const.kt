@@ -7,9 +7,6 @@ package nejati.me.omdbapi.webServices.helper
  */
 object Const {
 
-    //The Base URL
-    const val BASEURl: String = "http://www.omdbapi.com/";
-
-
+    // The Base URL
+    const val BASEURl: String = "http://www.omdbapi.com/"
 }
-

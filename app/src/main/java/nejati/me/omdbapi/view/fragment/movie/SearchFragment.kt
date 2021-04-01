@@ -21,11 +21,14 @@ class SearchFragment() :
     SearchFragmentNavigator {
 
     companion object {
+        const val EXTRA_TITLE = "title"
+        const val EXTRA_IMDB_ID = "ImdbID"
+
         @JvmStatic
         fun newInstance(): SearchFragment {
             val args = Bundle()
             val fragment = SearchFragment()
-            fragment.setArguments(args)
+            fragment.arguments = args
             return fragment
         }
     }
@@ -50,7 +53,7 @@ class SearchFragment() :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel!!.navigator = this
+        viewModel?.navigator = this
     }
 
     /**
@@ -60,13 +63,13 @@ class SearchFragment() :
     override fun onStartDetailMovieActivity(search: Search?) {
         startActivity(
             Intent(activity, DetailMovieActivity::class.java)
-                .putExtra("ImdbApi", search!!.imdbID)
-                .putExtra("title", search.title)
+                .putExtra(EXTRA_IMDB_ID, search?.imdbID)
+                .putExtra(EXTRA_TITLE, search?.title)
         )
     }
 
     override fun onWebServiceError() {
-        viewModel!!.errorMessage.set(getString(R.string.webservice_not_available))
+        viewModel?.errorMessage?.set(getString(R.string.webservice_not_available))
     }
 
 
@@ -75,8 +78,8 @@ class SearchFragment() :
      * @param searchType series or movie
      * @param searchValue search text
      */
-    fun searchOmdbApi(searchType: String, searchValue: String) {
-        viewModel!!.searchOmdbApi(searchType, searchValue)
+    fun searchOmdbApi(searchType: String, searchValue: String?) {
+        searchValue?.let { viewModel?.searchOmdbApi(searchType, it) }
     }
 }
 
